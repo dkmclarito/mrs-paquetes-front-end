@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 // import
 
 const Login = () => {
-  document.title = "Login | Upzet - React Admin & Dashboard Template";
+  document.title = "Login | Mr. Paquetes";
     useEffect(() => {
         document.body.className = "bg-pattern";
         // remove classname when component will unmount
@@ -42,24 +42,24 @@ const Login = () => {
                         />
                       </Link>
                     </div>
-                    <h4 className="font-size-18 text-muted mt-2 text-center">
-                      Welcome Back !
+                    <h4 className="font-size-18 text-muted mt-2 text-center saludo">
+                      Bienvenido!
                     </h4>
                     <p className="mb-5 text-center">
-                      Sign in to continue to Upzet.
+                      Inicia sesión para continuar.
                     </p>
                     <Form className="form-horizontal" action="#">
                       <Row>
                         <Col md={12}>
                           <div className="mb-4">
                             <label className="form-label" htmlFor="username">
-                              Username
+                              Usuario
                             </label>
                             <input
                               type="text"
                               className="form-control"
                               id="username"
-                              placeholder="Enter username"
+                              placeholder="Ingrese su correo"
                               defaultValue="admin@themesbrand.com"
                             />
                           </div>
@@ -68,41 +68,25 @@ const Login = () => {
                               className="form-label"
                               htmlFor="userpassword"
                             >
-                              Password
+                              Contraseña
                             </label>
                             <input
                               type="password"
                               className="form-control"
                               id="userpassword"
-                              placeholder="Enter password"
+                              placeholder="Ingrese su contraseña"
                               defaultValue="123456"
                             />
                           </div>
 
                           <Row>
-                            <Col>
-                              <div className="form-check">
-                                <input
-                                  type="checkbox"
-                                  className="form-check-input"
-                                  id="customControlInline"
-                                />
-                                <label
-                                  className="form-label form-check-label"
-                                  htmlFor="customControlInline"
-                                >
-                                  Remember me
-                                </label>
-                              </div>
-                            </Col>
                             <Col className="col-7">
                               <div className="text-md-end mt-3 mt-md-0">
                                 <Link
                                   to="/auth-recoverpw"
                                   className="text-muted"
                                 >
-                                  <i className="mdi mdi-lock"></i> Forgot your
-                                  password?
+                                  <i className="mdi mdi-lock"></i>Cambiar contraseña?
                                 </Link>
                               </div>
                             </Col>
@@ -113,7 +97,7 @@ const Login = () => {
                               type="submit"
                               href="/dashboard"
                             >
-                              Log In
+                              Iniciar Sesión
                             </a>
                           </div>
                         </Col>
@@ -124,10 +108,10 @@ const Login = () => {
               </Card>
               <div className="mt-5 text-center">
                 <p className="text-white-50">
-                  Don't have an account ?{" "}
-                  <Link to="/auth-register" className="fw-medium text-primary">
+                  No tienes una cuenta?{" "}
+                  <Link to="/auth-register" className="fw-medium text-primary plushAcount">
                     {" "}
-                    Register{" "}
+                    Regístrate{" "}
                   </Link>{" "}
                 </p>
                 <p className="text-center text-white-50">

@@ -29,7 +29,7 @@ import { facebook, google } from "../../config";
 import { createSelector } from 'reselect';
 
 const Login = props => {
-  document.title = "Login | Upzet - React Admin & Dashboard Template";
+  document.title = "Login | Mr. Paquetes";
 
   const dispatch = useDispatch();
 
@@ -42,8 +42,8 @@ const Login = props => {
       password: "123456" || '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      password: Yup.string().required("Please Enter Your Password"),
+      email: Yup.string().required("Ingrese su gmail"),
+      password: Yup.string().required("Ingrese su contraseña"),
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.router.navigate));
@@ -132,11 +132,11 @@ const { error } = useSelector(loginpage);
                       />
                     </Link>
                   </div>
-                  <h4 className="font-size-18 text-muted mt-2 text-center">
-                    Welcome Back !
+                  <h4 className="font-size-18 text-muted mt-2 text-center saludo">
+                  Bienvenido!
                   </h4>
                   <p className="mb-5 text-center">
-                    Sign in to continue to Upzet.
+                  Inicia sesión para continuar.
                   </p>
                   <Form
                     className="form-horizontal"
@@ -150,11 +150,11 @@ const { error } = useSelector(loginpage);
                     <Row>
                       <Col md={12}>
                         <div className="mb-4">
-                        <Label className="form-label">Email</Label>
+                        <Label className="form-label">Correo</Label>
                         <Input
                           name="email"
                           className="form-control"
-                          placeholder="Enter email"
+                          placeholder="Ingresa el correo"
                           type="email"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
@@ -168,12 +168,12 @@ const { error } = useSelector(loginpage);
                         ) : null}
                         </div>
                         <div className="mb-4">
-                          <Label className="form-label">Password</Label>
+                          <Label className="form-label">Contraseña</Label>
                           <Input
                             name="password"
                             value={validation.values.password || ""}
                             type="password"
-                            placeholder="Enter Password"
+                            placeholder="Ingresa la contraseña"
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
@@ -186,29 +186,13 @@ const { error } = useSelector(loginpage);
                         </div>
 
                         <Row>
-                          <Col>
-                            <div className="form-check">
-                              <input
-                                type="checkbox"
-                                className="form-check-input"
-                                id="customControlInline"
-                              />
-                              <label
-                                className="form-label form-check-label"
-                                htmlFor="customControlInline"
-                              >
-                                Remember me
-                              </label>
-                            </div>
-                          </Col>
                           <Col className="col-7">
                             <div className="text-md-end mt-3 mt-md-0">
                               <Link
                                 to="/auth-recoverpw"
                                 className="text-muted"
                               >
-                                <i className="mdi mdi-lock"></i> Forgot your
-                                password?
+                                <i className="mdi mdi-lock"></i> Cambiar contraseña?
                               </Link>
                             </div>
                           </Col>
@@ -218,14 +202,14 @@ const { error } = useSelector(loginpage);
                             className="btn btn-primary waves-effect waves-light"
                             type="submit"
                           >
-                            Log In
+                            Iniciar Sesión
                           </button>
                         </div>
                         <div className="mt-4 text-center">
-                      <h5 className="font-size-14 mb-3">Sign in with</h5>
+                      <h5 className="font-size-14 mb-3">Iniciar con</h5>
 
                       <ul className="list-inline">
-                        <li className="list-inline-item">
+                        <li className="list-inline-item facebookIcon">
                           <FacebookLogin
                             appId={facebook.APP_ID}
                             autoLoad={false}
@@ -269,10 +253,10 @@ const { error } = useSelector(loginpage);
             </Card>
             <div className="mt-5 text-center">
               <p className="text-white-50">
-                Don't have an account ?{" "}
-                <Link to="/register" className="fw-medium text-primary">
+                No tienes una cuenta?{" "}
+                <Link to="/register" className="fw-medium text-primary plushAcount">
                   {" "}
-                  Register{" "}
+                  Regístrate{" "}
                 </Link>{" "}
               </p>
               <p className="text-center">

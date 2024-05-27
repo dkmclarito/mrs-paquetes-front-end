@@ -11,7 +11,7 @@ const RecoverPassword = () => {
     document.title = "Recover Password | Upzet - React Admin & Dashboard Template";
     return (
         <React.Fragment>
-            <div className="bg-pattern" style={{height:"100vh"}}>
+            <div className="bg-pattern" style={{ height: "100vh" }}>
                 <div className="bg-overlay"></div>
                 <div className="account-pages pt-5">
                     <Container>
@@ -21,27 +21,27 @@ const RecoverPassword = () => {
                                     <CardBody className="p-4">
                                         <div className="">
                                             <div className="text-center">
-                                                 <Link to="/" className="">
+                                                <Link to="/" className="">
                                                     <img src={logodark} alt="" height="24" className="auth-logo logo-dark mx-auto" />
                                                     <img src={logolight} alt="" height="24" className="auth-logo logo-light mx-auto" />
-                                                 </Link>
+                                                </Link>
                                             </div>
-                                            <h4 className="font-size-18 text-muted mt-2 text-center">Reset Password</h4>
-                                            <p className="mb-5 text-center">Reset your Password with Upzet.</p>
+                                            <h4 className="font-size-18 text-muted mt-2 text-center saludo">Olvidé mi contraseña</h4>
+                                            <p className="mb-5 text-center">Resetear a continuación</p>
                                             <form className="form-horizontal" action="#">
                                                 <Row>
                                                     <Col md={12}>
                                                         <div className="alert alert-warning alert-dismissible">
                                                             <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                                            Enter your <b>Email</b> and instructions will be sent to you!
+                                                            Ingresa tu <b>Correo</b> y sigue las instrucciones que te enviarémos...
                                                         </div>
 
                                                         <div className="mt-4">
-                                                            <label className="form-label" htmlFor="useremail">Email</label>
-                                                            <input type="email" className="form-control" id="useremail" placeholder="Enter email" />
+                                                            <label className="form-label" htmlFor="useremail">Correo</label>
+                                                            <input type="email" className="form-control" id="useremail" placeholder="Ingresa tu gmail" />
                                                         </div>
                                                         <div className="d-grid mt-4">
-                                                            <a href='/dashboard' className="btn btn-primary waves-effect waves-light" type="submit">Send Email</a>
+                                                            <a href='/dashboard' className="btn btn-primary waves-effect waves-light" type="submit">Enviar correo</a>
                                                         </div>
                                                     </Col>
                                                 </Row>
@@ -50,7 +50,7 @@ const RecoverPassword = () => {
                                     </CardBody>
                                 </Card>
                                 <div className="mt-5 text-center">
-                                    <p className="text-white-50">Don't have an account ?  <Link to="/auth-register" className="fw-medium text-primary"> Register  </Link> </p>
+                                    <p className="text-white-50">No tienes una cuenta?  <Link to="/auth-register" className="fw-medium text-primary"> Regístrate  </Link> </p>
                                     <p className="text-center text-white-50">Mr. Paquetes © 2024 | Todos los derechos reservados</p>
                                 </div>
                             </Col>

@@ -20,7 +20,7 @@ import logolight from '../../assets/images/logo-light.png';
 import logodark from '../../assets/images/logo-dark.png';
 
 const Register = props => {
-    document.title = "Register | Upzet - React Admin & Dashboard Template";
+    document.title = "Registro | Mr. Paquetes";
 
   const dispatch = useDispatch();
 
@@ -34,9 +34,9 @@ const Register = props => {
       password: '',
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      username: Yup.string().required("Please Enter Your Username"),
-      password: Yup.string().required("Please Enter Your Password"),
+      email: Yup.string().required("Ingrese su Email"),
+      username: Yup.string().required("Ingrese su usuario"),
+      password: Yup.string().required(" Ingrese su contraseña"),
     }),
     onSubmit: (values) => {
       dispatch(registerUser(values));
@@ -78,8 +78,8 @@ const { user, registrationError } = useSelector(registerpage);
                                 </Link>
                             </div>
 
-                            <h4 className="font-size-18 text-muted text-center mt-2">Free Register</h4>
-                            <p className="text-muted text-center mb-4">Get your free Upzet account now.</p>
+                            <h4 className="font-size-18 text-muted text-center mt-2 saludo">Regístrate</h4>
+                            <p className="text-muted text-center mb-4">E inicia sesión.</p>
                             <Form
                                 className="form-horizontal"
                                 onSubmit={(e) => {
@@ -90,7 +90,7 @@ const { user, registrationError } = useSelector(registerpage);
                                 >
                                 {user && user ? (
                                     <Alert color="success">
-                                    Register User Successfully
+                                    Registro completo
                                     </Alert>
                                 ) : null}
 
@@ -101,12 +101,12 @@ const { user, registrationError } = useSelector(registerpage);
                                 <Row>
                                     <Col md={12}>
                                         <div className="mb-4">
-                                        <Label className="form-label">Email</Label>
+                                        <Label className="form-label">Correo</Label>
                                             <Input
                                             id="email"
                                             name="email"
                                             className="form-control"
-                                            placeholder="Enter email"
+                                            placeholder="Ingresa el correo"
                                             type="email"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
@@ -120,11 +120,11 @@ const { user, registrationError } = useSelector(registerpage);
                                             ) : null}
                                         </div>
                                         <div className="mb-4">
-                                        <Label className="form-label">Username</Label>
+                                        <Label className="form-label">Usuario</Label>
                                             <Input
                                             name="username"
                                             type="text"
-                                            placeholder="Enter username"
+                                            placeholder="Ingresa el usuario"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
                                             value={validation.values.username || ""}
@@ -137,11 +137,11 @@ const { user, registrationError } = useSelector(registerpage);
                                             ) : null}
                                         </div>
                                         <div className="mb-4">
-                                        <Label className="form-label">Password</Label>
+                                        <Label className="form-label">Contraseña</Label>
                                             <Input
                                             name="password"
                                             type="password"
-                                            placeholder="Enter Password"
+                                            placeholder="Ingresa la contraseña"
                                             onChange={validation.handleChange}
                                             onBlur={validation.handleBlur}
                                             value={validation.values.password || ""}
@@ -153,12 +153,9 @@ const { user, registrationError } = useSelector(registerpage);
                                             <FormFeedback type="invalid"><div>{validation.errors.password}</div></FormFeedback>
                                             ) : null}
                                         </div>
-                                        <div className="form-check">
-                                            <input type="checkbox" className="form-check-input" id="term-conditionCheck" />
-                                            <label className="form-check-label fw-normal" htmlFor="term-conditionCheck">I accept <Link to="#" className="text-primary">Terms and Conditions</Link></label>
-                                        </div>
+                                        
                                         <div className="d-grid mt-4">
-                                            <button className="btn btn-primary waves-effect waves-light" type="submit">Register</button>
+                                            <button className="btn btn-primary waves-effect waves-light" type="submit">Guardar Registro</button>
                                         </div>
                                     </Col>
                                 </Row>
@@ -166,7 +163,7 @@ const { user, registrationError } = useSelector(registerpage);
                         </CardBody>
                     </Card>
                     <div className="mt-5 text-center">
-                        <p className="text-white-50">Already have an account ?<Link to="/login" className="fw-medium text-primary"> Login </Link> </p>
+                        <p className="text-white-50">Tienes una cuenta?<Link to="/login" className="fw-medium text-primary plushAcount"> Inicia Sesión </Link> </p>
                         <p className="text-center text-white-50">Mr. Paquetes © 2024 | Todos los derechos reservados</p>
                     </div>
                 </Col>
