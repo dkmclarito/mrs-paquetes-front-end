@@ -74,4 +74,57 @@ label {
   background-color: #007bff;
 }
 
+.form-group-custom {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-group-custom label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: white;
+  padding: 0 5px;
+  font-size: 0.85rem;
+  color: #333;
+  z-index: 10;
+}
+
+.form-group-custom .form-control-lg {
+  padding: 20px 15px 10px 15px;
+}
+
+.form-group-custom select.form-control-lg {
+  padding-right: 15px;
+}
+
+.custom-button {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.custom-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Placeholder styles */
+::placeholder {
+  font-size: 0.875em; /* Ajusta el tamaño según tus necesidades */
+  color: #6c757d; /* Opcional: cambia el color del placeholder */
+}
+
+/* Para navegadores que requieren prefijos específicos */
+::-webkit-input-placeholder {
+  font-size: 0.7em;
+  color: #6c757d;
+}
+
+:-ms-input-placeholder {
+  font-size: 0.75em;
+  color: #6c757d;
+}
+
+
 
