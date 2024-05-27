@@ -15,7 +15,7 @@ const SidebarData = [
         label: "Usuarios",
         icon: "mdi mdi-account-multiple-outline",
         subItem: [
-            { sublabel: "Gestión de usuarios", link: "/GestionClientes" },        ],
+            { sublabel: "Gestión de usuarios", link: "/GestionUsuarios" },        ],
     },
     {
         label: "Clientes",
@@ -37,7 +37,7 @@ const SidebarData = [
         label: "Empleados",
         icon: "mdi mdi-account-hard-hat",
         subItem: [
-            { sublabel: "Gestión de empleados", link: "/pages-starter" },
+            { sublabel: "Gestión de empleados", link: "/GestionEmpleados" },
         ],
     },
         {

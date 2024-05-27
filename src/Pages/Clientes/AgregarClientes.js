@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody, Col, Row, Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-import "./AgregarClientes.css";
+import "../style.css";
 
 const departamentos = [
   { nombre: "San Salvador", municipios: ["San Salvador", "Soyapango", "Mejicanos"] },
   { nombre: "La Libertad", municipios: ["Santa Tecla", "Antiguo Cuscatlán", "Zaragoza"] },
 ];
 
-const AgregarClientes = () => {
+const RegistroClientes = () => {
   document.title = "Agregar Cliente | Mr. Paquetes";
 
   const [nombre, setNombre] = useState("");
@@ -44,6 +44,7 @@ const AgregarClientes = () => {
             <Col lg={12}>
               <Card className="shadow-sm border-0">
                 <CardBody>
+                  <h4 className="card-title mb-4">Registro de Cliente</h4>
                   <Form onSubmit={handleSubmit}>
                   <Row form>
                       <Col md={6}>
@@ -219,6 +220,4 @@ const AgregarClientes = () => {
   );
 };
 
-export default AgregarClientes;
-
-
+export default RegistroClientes;

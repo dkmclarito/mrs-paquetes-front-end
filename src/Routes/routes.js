@@ -93,6 +93,10 @@ import IconBoxicons from "../Pages/Icons/IconBoxicons"
 // Import Map Pages
 import VectorMaps from "../Pages/Maps/VectorMap";
 import GoogleMap from "../Pages/Maps/GoogleMap";
+import GestionUsuarios from "../Pages/Usuarios/GestionUsuarios.js";
+import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
+import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
+import AgregarEmpleado from "../Pages/Empleados/Agregar_Empleados.js";
 
 
 
@@ -107,7 +111,13 @@ const authProtectedRoutes = [
   // Profile
   { path: "/userprofile", component: <UserProfile /> },
 
-  // E-mail
+// Empleados 
+{ path: "/GestionEmpleados", component: <GestionEmpleados/> },
+{ path: "/AgregarEmpleados", component: <AgregarEmpleado/> },
+ // Usuarios
+ { path: "/GestionUsuarios", component: <GestionUsuarios/> },
+ { path: "/AgregarUsuarios", component: <AgregarUsuarios/> },
+  // Clientes
   { path: "/GestionClientes", component: <GestionClientes/> },
   { path: "/AgregarClientes", component: <AgregarClientes/> },
 

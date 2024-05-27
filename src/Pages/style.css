@@ -1,0 +1,145 @@
+.page-content {
+  background-color: #f8f9fa;
+  padding: 30px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.form-control-lg {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.custom-button {
+  background-color: #635bff !important;
+  border-color: #635bff !important;
+  color: white !important;
+}
+
+.btn-lg {
+  padding: 10px 20px;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background-color: #635bff;
+  border-color: #635bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+  border-color: #4e555b;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  background-color: transparent;
+  border: none;
+  color: #000; /* Asegúrate de que el color del ícono no sea blanco sobre blanco */
+}
+
+.btn-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger {
+  color: white;
+  background-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-primary {
+  color: white;
+  background-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.form-group-custom {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.form-group-custom label {
+  position: absolute;
+  top: -10px;
+  left: 15px;
+  background: white;
+  padding: 0 5px;
+  font-size: 0.85rem;
+  color: #333;
+  z-index: 10;
+}
+
+.form-group-custom .form-control-lg {
+  padding: 20px 15px 10px 15px;
+}
+
+.form-group-custom select.form-control-lg {
+  padding-right: 15px;
+}
+
+.custom-button {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+.custom-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Placeholder styles */
+::placeholder {
+  font-size: 0.875em;
+  color: #6c757d;
+}
+
+/* Para navegadores que requieren prefijos específicos */
+::-webkit-input-placeholder {
+  font-size: 0.7em;
+  color: #6c757d;
+}
+
+:-ms-input-placeholder {
+  font-size: 0.75em;
+  color: #6c757d;
+}
+
+.btn-lg,
+.btn-md {
+  padding: 8px 10px; /* Ajusta el padding según el tamaño deseado */
+  font-size: 14px; /* Ajusta el tamaño de la fuente según el tamaño deseado */
+}
+
+

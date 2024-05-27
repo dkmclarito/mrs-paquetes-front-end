@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Card, CardBody, Col, Row, Container, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
-//import AgregarClientes from "./AgregarClientes"; 
+import "../style.css";
+ 
 
 const Clientes = () => {
   document.title = "Clientes | Nombre de tu Aplicación";
 
-  // Estado para almacenar los clientes
   const [clientes, setClientes] = useState([
     {
       id: 1,
