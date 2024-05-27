@@ -1,0 +1,77 @@
+.page-content {
+  background-color: #f8f9fa;
+  padding: 30px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.card {
+  border-radius: 15px;
+}
+
+.form-control-lg {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+label {
+  font-size: 18px;
+}
+
+.custom-button {
+  background-color: #635bff !important; /* Adding !important to ensure it takes precedence */
+  border-color: #635bff !important;
+  color: white !important;
+}
+
+.btn-lg {
+  padding: 10px 20px;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background-color: #635bff;
+  border-color: #635bff;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #565e64;
+  border-color: #4e555b;
+}
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+  background-color: transparent; /* Asegura que el fondo sea transparente por defecto */
+  border: none; /* Elimina cualquier borde por defecto */
+}
+
+.btn-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Cambia el color de resaltado al pasar el cursor */
+}
+
+.btn-danger-custom {
+  color: white;
+  background-color: #dc3545;
+}
+
+.btn-primary-custom {
+  color: white;
+  background-color: #007bff;
+}
+
+
