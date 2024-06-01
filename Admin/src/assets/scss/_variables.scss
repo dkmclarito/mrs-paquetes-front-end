@@ -111,7 +111,7 @@ $grays: (
 // fusv-enable
 
 // scss-docs-start color-variables
-$blue: #0bb197;
+$blue: #15b79f;
 $indigo: #564ab1;
 $purple: #5664d2;
 $pink: #e83e8c;
@@ -121,6 +121,7 @@ $yellow: #fcb92c;
 $green: #0ac074;
 $teal: #050505;
 $cyan: #4aa3ff;
+$azul: #212636;
 
 // scss-docs-end color-variables
 
@@ -128,6 +129,7 @@ $cyan: #4aa3ff;
 $colors: (
   "blue":       $blue,
   "indigo":     $indigo,
+  "azul":       $azul,
   "purple":     $purple,
   "pink":       $pink,
   "red":        $red,

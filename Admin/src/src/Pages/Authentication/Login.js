@@ -3,7 +3,18 @@ import React, { useEffect } from "react";
 import logolight from "../../assets/images/logo-light.png";
 import logodark from "../../assets/images/logo-dark.png";
 
-import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
+import {
+  Row,
+  Col,
+  CardBody,
+  Card,
+  Alert,
+  Container,
+  Form,
+  Input,
+  FormFeedback,
+  Label,
+} from "reactstrap";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -26,10 +37,10 @@ import { loginUser, socialLogin } from "../../store/actions";
 //Import config
 import { facebook, google } from "../../config";
 
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
-const Login = props => {
-  document.title = "Login | Upzet - React Admin & Dashboard Template";
+const Login = (props) => {
+  document.title = "Login | Mr. Paquetes";
 
   const dispatch = useDispatch();
 
@@ -38,8 +49,8 @@ const Login = props => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "admin@Themesdesign.com" || '',
-      password: "123456" || '',
+      email: "admin@Themesdesign.com" || "",
+      password: "123456" || "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
@@ -47,17 +58,17 @@ const Login = props => {
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.router.navigate));
-    }
+    },
   });
 
   const loginpage = createSelector(
-    (state ) => state.login,
+    (state) => state.login,
     (state) => ({
-        error: state.error,
+      error: state.error,
     })
   );
-// Inside your component
-const { error } = useSelector(loginpage);
+  // Inside your component
+  const { error } = useSelector(loginpage);
 
   // handleValidSubmit
   // const handleValidSubmit = (event, values) => {
@@ -85,7 +96,7 @@ const { error } = useSelector(loginpage);
   };
 
   //handleGoogleLoginResponse
-  const googleResponse = response => {
+  const googleResponse = (response) => {
     signIn(response, "google");
   };
 
@@ -93,12 +104,12 @@ const { error } = useSelector(loginpage);
   // const twitterResponse = e => {}
 
   //handleFacebookLoginResponse
-  const facebookResponse = response => {
+  const facebookResponse = (response) => {
     signIn(response, "facebook");
   };
 
   useEffect(() => {
-    document.body.className = "bg-pattern";
+    document.body.className = "bg-claro";
     // remove classname when component will unmount
     return function cleanup() {
       document.body.className = "";
@@ -107,12 +118,10 @@ const { error } = useSelector(loginpage);
 
   return (
     <React.Fragment>
-    
-    <div className="bg-overlay"></div>
-    <div className="account-pages my-5 pt-5">
+      <div className="account-pages my-2 pt-3">
       <Container>
         <Row className="justify-content-center">
-          <Col lg={6} md={8} xl={4}>
+          <Col lg={6} md={8} xl={5} sm={8}>
             <Card>
               <CardBody className="p-4">
                 <div>
@@ -132,10 +141,10 @@ const { error } = useSelector(loginpage);
                       />
                     </Link>
                   </div>
-                  <h4 className="font-size-18 text-muted mt-2 text-center">
+                  <h4 className="font-size-18 text-primary mt-2 text-center">
                     Bienvenido/a !
                   </h4>
-                  <p className="mb-5 text-center">
+                  <p className="mb-3 text-center">
                     Inicia Sesión para acceder a Mr. Paquetes
                   </p>
                   <Form
@@ -146,26 +155,36 @@ const { error } = useSelector(loginpage);
                       return false;
                     }}
                   >
-                    {error ? <Alert color="danger"><div>{error}</div></Alert> : null}
+                    {error ? (
+                      <Alert color="danger">
+                        <div>{error}</div>
+                      </Alert>
+                    ) : null}
                     <Row>
                       <Col md={12}>
                         <div className="mb-4">
-                        <Label className="form-label">Email</Label>
-                        <Input
-                          name="email"
-                          className="form-control"
-                          placeholder="Enter email"
-                          type="email"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.email || ""}
-                          invalid={
-                            validation.touched.email && validation.errors.email ? true : false
-                          }
-                        />
-                        {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid"><div>{validation.errors.email}</div></FormFeedback>
-                        ) : null}
+                          <Label className="form-label">Email</Label>
+                          <Input
+                            name="email"
+                            className="form-control"
+                            placeholder="Enter email"
+                            type="email"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.email || ""}
+                            invalid={
+                              validation.touched.email &&
+                              validation.errors.email
+                                ? true
+                                : false
+                            }
+                          />
+                          {validation.touched.email &&
+                          validation.errors.email ? (
+                            <FormFeedback type="invalid">
+                              <div>{validation.errors.email}</div>
+                            </FormFeedback>
+                          ) : null}
                         </div>
                         <div className="mb-4">
                           <Label className="form-label">Password</Label>
@@ -177,11 +196,17 @@ const { error } = useSelector(loginpage);
                             onChange={validation.handleChange}
                             onBlur={validation.handleBlur}
                             invalid={
-                              validation.touched.password && validation.errors.password ? true : false
+                              validation.touched.password &&
+                              validation.errors.password
+                                ? true
+                                : false
                             }
                           />
-                          {validation.touched.password && validation.errors.password ? (
-                            <FormFeedback type="invalid"><div> {validation.errors.password} </div></FormFeedback>
+                          {validation.touched.password &&
+                          validation.errors.password ? (
+                            <FormFeedback type="invalid">
+                              <div> {validation.errors.password} </div>
+                            </FormFeedback>
                           ) : null}
                         </div>
 
@@ -201,47 +226,45 @@ const { error } = useSelector(loginpage);
                               </label>
                             </div>
                           </Col>
-                          <Col className="col-7">
+                          <Col className="col-12">
                             <div className="text-md-end mt-3 mt-md-0">
-                              <Link
-                                to="/auth-recoverpw"
-                                className="text-muted"
-                              >
-                                <i className="mdi mdi-lock"></i> Olvidaste tu contraseña?
+                              <Link to="/auth-recoverpw" className="text-muted">
+                                <i className="mdi mdi-lock"></i> Olvidaste tu
+                                contraseña?
                               </Link>
                             </div>
                           </Col>
                         </Row>
                         <div className="d-grid mt-4">
-                        <button
-    className="btn btn-primary waves-effect waves-light"
-    type="submit"
-    style={{ backgroundColor: '#635bff' }}
->
-    Iniciar Sesión
-</button>
-
+                          <button
+                            className="btn btn-primary waves-effect waves-light"
+                            type="submit"
+                            style={{ backgroundColor: "#635bff" }}
+                          >
+                            Iniciar Sesión
+                          </button>
+                          <p className="text-dark-50 text-right">
+                            No tienes cuenta?{" "}
+                            <Link
+                              to="/register"
+                              className="fw-medium text-primary"
+                            >
+                              {" "}
+                              Registrate{" "}
+                            </Link>{" "}
+                          </p>
                         </div>
-                                             </Col>
+                      </Col>
                     </Row>
                   </Form>
                 </div>
               </CardBody>
             </Card>
-            <div className="mt-5 text-center">
-              <p className="text-white-50">
-                No tienes cuenta?{" "}
-                <Link to="/register" className="fw-medium text-primary">
-                  {" "}
-                  Registrate{" "}
-                </Link>{" "}
-              </p>
-            </div>
           </Col>
         </Row>
       </Container>
-    </div>
-  </React.Fragment>
+      </div>
+    </React.Fragment>
   );
 };
 
