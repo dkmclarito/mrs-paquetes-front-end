@@ -8,6 +8,8 @@ import Dashboard from "../Pages/Dashboard";
 import Calender from "../Pages/Calender";
 
 
+
+
 // Import Clientes
 import GestionClientes from "../Pages/Clientes/GestionClientes.js";
 import AgregarClientes from "../Pages/Clientes/AgregarClientes.js";
@@ -97,6 +99,7 @@ import GestionUsuarios from "../Pages/Usuarios/GestionUsuarios.js";
 import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
 import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
 import AgregarEmpleado from "../Pages/Empleados/Agregar_Empleados.js";
+import Tracking from "../Pages/Paquetes/Tracking.js";
 
 
 
@@ -110,6 +113,10 @@ const authProtectedRoutes = [
 
   // Profile
   { path: "/userprofile", component: <UserProfile /> },
+
+   // Paquetes
+  
+   { path: "/Tracking", component: <Tracking /> },
 
 // Empleados 
 { path: "/GestionEmpleados", component: <GestionEmpleados/> },

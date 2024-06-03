@@ -63,7 +63,7 @@ const SidebarData = [
         subItem: [
             { sublabel: "Gestión de ordenes", link: "/tables-basic" },
             { sublabel: "Tipo de pago", link: "/tables-listjs" },
-            { sublabel: "Tupo de envío", link: "/table-datatables" },
+            { sublabel: "Tipo de envío", link: "/table-datatables" },
         ],
     },
     {

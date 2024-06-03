@@ -19,8 +19,6 @@ const RegistroClientes = () => {
   const [tipoPersona, setTipoPersona] = useState("");
   const [contribuyente, setContribuyente] = useState("si");
   const [genero, setGenero] = useState("");
-  const [estado, setEstado] = useState("");
-  const [fechaRegistro] = useState(new Date().toISOString().slice(0, 16));
   const [departamento, setDepartamento] = useState("");
   const [municipio, setMunicipio] = useState("");
   const [nombreEmpresa, setNombreEmpresa] = useState("");
@@ -28,8 +26,8 @@ const RegistroClientes = () => {
   const [nrc, setNrc] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
-  const [tipoCliente, setTipoCliente] = useState(""); // Nuevo estado
-  const [giro, setGiro] = useState(""); // Nuevo estado
+  const [tipoCliente, setTipoCliente] = useState(""); 
+  const [giro, setGiro] = useState(""); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +42,6 @@ const RegistroClientes = () => {
             <Col lg={12}>
               <Card className="shadow-sm border-0">
                 <CardBody>
-                  <h4 className="card-title mb-4">Registro de Cliente</h4>
                   <Form onSubmit={handleSubmit}>
                   <Row form>
                       <Col md={6}>
@@ -183,24 +180,6 @@ const RegistroClientes = () => {
                             {departamento && departamentos.find(d => d.nombre === departamento).municipios.map((muni, index) => (
                               <option key={index} value={muni}>{muni}</option>
                             ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row form>
-                      <Col md={6}>
-                        <FormGroup className="form-group-custom">
-                          <Label for="fechaRegistro">Fecha de Registro</Label>
-                          <Input type="datetime-local" id="fechaRegistro" value={fechaRegistro} readOnly className="form-control-lg custom-input" />
-                        </FormGroup>
-                      </Col>
-                      <Col md={6}>
-                        <FormGroup className="form-group-custom">
-                          <Label for="estado">Estado</Label>
-                          <Input type="select" id="estado" value={estado} onChange={(e) => setEstado(e.target.value)} required className="form-control-lg custom-input">
-                            <option value="">Seleccione</option>
-                            <option value="activo">Activo</option>
-                            <option value="inactivo">Inactivo</option>
                           </Input>
                         </FormGroup>
                       </Col>

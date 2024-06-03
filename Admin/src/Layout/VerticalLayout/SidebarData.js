@@ -28,8 +28,7 @@ const SidebarData = [
         label: "Paquetes",
         icon: "mdi mdi-package-variant",
         subItem: [
-            { sublabel: "Presentación", link: "/auth-login" },
-            { sublabel: "Tracking", link: "/auth-register" },
+            { sublabel: "Tracking", link: "/Tracking" },
             { sublabel: "Incidentes", link: "/auth-recoverpw" },
                 ],
     },
@@ -63,7 +62,7 @@ const SidebarData = [
         subItem: [
             { sublabel: "Gestión de ordenes", link: "/tables-basic" },
             { sublabel: "Tipo de pago", link: "/tables-listjs" },
-            { sublabel: "Tupo de envío", link: "/table-datatables" },
+            { sublabel: "Tipo de envío", link: "/table-datatables" },
         ],
     },
     {

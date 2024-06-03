@@ -142,4 +142,131 @@ label {
   font-size: 14px; /* Ajusta el tamaño de la fuente según el tamaño deseado */
 }
 
+/* CSS para la representación de la línea física */
+.progress-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 20px;
+  width: 60%;
+  margin: 0 auto;
+}
 
+.progress-step {
+  text-align: center;
+  position: relative;
+  flex: 1;
+}
+
+.progress-marker {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  z-index: 2;
+  margin: 0 17px;
+  position: relative;
+}
+
+.progress-marker.completed {
+  border-color: #4caf50;
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.progress-marker.completed::before {
+  content: '\2713'; /* Código del símbolo de chequecito */
+  font-size: 24px;
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 24px;
+  height: 24px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.progress-line {
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  right: 40px;
+  width: calc((100% / 3 * 2) - 80px);
+  height: 4px;
+  background-color: #ddd;
+  z-index: 1;
+  transform: translateY(-500%);
+}
+
+
+.progress-line.completed {
+  background-color: #4caf50;
+}
+
+.progress-text {
+  z-index: 2;
+  text-align: justify;
+  margin-left: 5px;
+}
+
+.segment-line {
+  position: absolute;
+  top: 100%;
+  height: 4px;
+  background-color: #ddd;
+  z-index: 1;
+  transform: translateY(100%);
+}
+
+.segment-line.completed {
+  background-color: #4caf50;
+}
+
+.progress-marker.completed::before {
+  content: '\2713'; /* Código del símbolo de chequecito */
+  font-size: 24px;
+  position: absolute;
+  top: -16px; /* Ajusta la separación vertical */
+  right: -18px; /* Ajusta la separación horizontal */
+  width: 24px;
+  height: 24px;
+  background-color: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.tracking-result {
+  margin-bottom: 100px; /* Ajusta el valor según sea necesario */
+}
+
+.tracking-message {
+  font-weight: bold;
+  font-size: 14px; /* Ajusta el tamaño de la fuente para que no sea tan grande */
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  color: #333;
+}
+
+.highlight {
+  color: #635bff;
+}
+
+
+.historial-wrapper {
+  position: relative; /* Establece la posición relativa */
+  top: -50px; 
+}
