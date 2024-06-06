@@ -1,17 +1,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-//Dashboard
+// Dashboard
 import Dashboard from "../Pages/Dashboard";
 
 // Import Calender
 import Calender from "../Pages/Calender";
 
-
 // Import Clientes
 import GestionClientes from "../Pages/Clientes/GestionClientes.js";
 import AgregarClientes from "../Pages/Clientes/AgregarClientes.js";
-
 
 // Import Authentication pages
 import Login from "../Pages/Authentication/Login";
@@ -60,7 +58,6 @@ import UiToasts from "../Pages/UiElements/UiToasts";
 import UiVideo from "../Pages/UiElements/UiVideo";
 import UiPopovers from "../Pages/UiElements/UiPopovers&Tooltips";
 
-
 // Import Forms
 import FormEditors from "../Pages/Forms/FormEditors";
 import FormUpload from "../Pages/Forms/FormUpload";
@@ -76,7 +73,6 @@ import BasicTable from "../Pages/Tables/BasicTable.js";
 import ListJs from "../Pages/Tables/ListTables/ListTables";
 import DataTable from "../Pages/Tables/DataTables/DataTables";
 
-
 // Import Charts
 import ApexCharts from "../Pages/Charts/ApexCharts";
 import ChartJs from "../Pages/Charts/ChartjsCharts";
@@ -88,11 +84,13 @@ import JknobCharts from "../Pages/Charts/JqueryKnobCharts";
 import IconMaterialdesign from "../Pages/Icons/IconMaterialdesign";
 import IconFontawesome from "../Pages/Icons/IconFontAwesome";
 import IconDripicons from "../Pages/Icons/IconDrip";
-import IconBoxicons from "../Pages/Icons/IconBoxicons"
+import IconBoxicons from "../Pages/Icons/IconBoxicons";
 
 // Import Map Pages
 import VectorMaps from "../Pages/Maps/VectorMap";
 import GoogleMap from "../Pages/Maps/GoogleMap";
+
+// Import custom pages
 import GestionUsuarios from "../Pages/Usuarios/GestionUsuarios.js";
 import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
 import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
@@ -107,41 +105,42 @@ import AgregarRutas from "../Pages/Rutas/AgregarRutas.js";
 import GestionIncidentes from "../Pages/Paquetes/GestionIncidentes.js";
 import Incidentes from "../Pages/Paquetes/Incidentes.js";
 
-
-
 const authProtectedRoutes = [
-  //dashboard
+  // Dashboard
   { path: "/dashboard", component: <Dashboard /> },
 
-  // Calender
+  // Calendar
   { path: "/calendar", component: <Calender /> },
 
   // Profile
   { path: "/userprofile", component: <UserProfile /> },
-   // Paquetes
-   { path: "/Tracking", component: <Tracking /> },
-   { path: "/GestionIncidentes", component: <GestionIncidentes /> },
-   { path: "/Incidentes", component: <Incidentes /> },
 
-// Empleados 
-{ path: "/GestionEmpleados", component: <GestionEmpleados/> },
-{ path: "/AgregarEmpleados", component: <AgregarEmpleado/> },
- // Usuarios
- { path: "/GestionUsuarios", component: <GestionUsuarios/> },
- { path: "/AgregarUsuarios", component: <AgregarUsuarios/> },
+  // Paquetes
+  { path: "/Tracking", component: <Tracking /> },
+  { path: "/GestionIncidentes", component: <GestionIncidentes /> },
+  { path: "/Incidentes", component: <Incidentes /> },
+
+  // Empleados 
+  { path: "/GestionEmpleados", component: <GestionEmpleados /> },
+  { path: "/AgregarEmpleados", component: <AgregarEmpleado /> },
+
+  // Usuarios
+  { path: "/GestionUsuarios", component: <GestionUsuarios /> },
+  { path: "/AgregarUsuarios", component: <AgregarUsuarios /> },
+
   // Clientes
-  { path: "/GestionClientes", component: <GestionClientes/> },
-  { path: "/AgregarClientes", component: <AgregarClientes/> },
+  { path: "/GestionClientes", component: <GestionClientes /> },
+  { path: "/AgregarClientes", component: <AgregarClientes /> },
 
   // Rutas 
   { path: "/RouteSearch", component: <RouteSearch /> },
-  { path: "/AgregarRutas", component: <AgregarRutas/> },
-  { path: "/GestionRutas", component: <GestionRutas/> },
+  { path: "/AgregarRutas", component: <AgregarRutas /> },
+  { path: "/GestionRutas", component: <GestionRutas /> },
 
   // Vehículos 
-  { path: "/BusquedaVehiculos", component: <BusquedaVehiculos/> },
-  { path: "/AgregarVehiculos", component: <AgregarVehiculos/> },
-  { path: "/GestionVehiculos", component: <GestionVehiculos/> },
+  { path: "/BusquedaVehiculos", component: <BusquedaVehiculos /> },
+  { path: "/AgregarVehiculos", component: <AgregarVehiculos /> },
+  { path: "/GestionVehiculos", component: <GestionVehiculos /> },
 
   // Utility Pages
   { path: "/pages-starter", component: <StarterPage /> },
@@ -172,7 +171,6 @@ const authProtectedRoutes = [
   { path: "/ui-toasts", component: <UiToasts /> },
   { path: "/ui-video", component: <UiVideo /> },
   { path: "/ui-popovers", component: <UiPopovers /> },
-  
 
   // Forms pages
   { path: "/form-elements", component: <FormElements /> },
@@ -187,53 +185,50 @@ const authProtectedRoutes = [
   // Tables pages
   { path: "/tables-basic", component: <BasicTable /> },
   { path: "/tables-listjs", component: <ListJs /> },
-  { path: "/table-datatables", component: <DataTable /> },
+  { path: "/tables-datatables", component: <DataTable /> },
 
-  // Charts Pages
-  { path: "/chart-apexcharts", component: <ApexCharts /> },
-  { path: "/chart-chartjscharts", component: <ChartJs /> },
-  { path: "/chart-floatcharts", component: <FloatChart /> },
-  { path: "/chart-jknobcharts", component: <JknobCharts /> },
-  { path: "/chart-sparklinecharts", component: <Sparklinechart /> },
+  // Charts pages
+  { path: "/charts-apex", component: <ApexCharts /> },
+  { path: "/charts-chartjs", component: <ChartJs /> },
+  { path: "/charts-sparkline", component: <Sparklinechart /> },
+  { path: "/charts-flot", component: <FloatChart /> },
+  { path: "/charts-knob", component: <JknobCharts /> },
 
-  // Icons Pages
-  { path: "/icon-boxicon", component: <IconBoxicons /> },
+  // Icons pages
   { path: "/icons-materialdesign", component: <IconMaterialdesign /> },
   { path: "/icons-fontawesome", component: <IconFontawesome /> },
-  { path: "/icon-dripicons", component: <IconDripicons /> },
+  { path: "/icons-dripicons", component: <IconDripicons /> },
+  { path: "/icons-boxicons", component: <IconBoxicons /> },
 
-  // Maps Pages
-  { path: "/maps-vector", component: <VectorMaps /> },
+  // Maps pages
+  { path: "/maps-vectormaps", component: <VectorMaps /> },
   { path: "/maps-google", component: <GoogleMap /> },
 
-  // this route should be at the end of all other routes
-  // eslint-disable-next-line react/display-name
-  {
-    path: "/",
-    exact: true,
-    component: <Navigate to="/dashboard" />,
-  },
+  // Default route
+  { path: "/", exact: true, component: () => <Navigate to="/dashboard" /> },
+
+  // Redirect for missing pages
+  { path: "*", component: <Error404 /> }
 ];
 
 const publicRoutes = [
-
-  // Authentication Page
-  { path: "/logout", component: <Logout /> },
+  // Authentication Pages
   { path: "/login", component: <Login /> },
+  { path: "/logout", component: <Logout /> },
   { path: "/forgot-password", component: <ForgetPasswordPage /> },
   { path: "/register", component: <Register /> },
 
-  // Authentication Inner Pages
-  { path: "/auth-login", component: <Login1 /> },
-  { path: "/auth-register", component: <Register1 /> },
-  { path: "/auth-recoverpw", component: <RecoverPassword /> },
-  { path: "/auth-lock-screen", component: <LockScreen /> },
-
   // Utility Pages
-  { path: "/pages-404", component: <Error404 /> },
-  { path: "/pages-500", component: <Error500 /> },
   { path: "/pages-maintenance", component: <Maintenance /> },
   { path: "/pages-comingsoon", component: <ComingSoon /> },
+  { path: "/pages-404", component: <Error404 /> },
+  { path: "/pages-500", component: <Error500 /> },
+
+  // Inner Authentication Pages
+  { path: "/pages-login", component: <Login1 /> },
+  { path: "/pages-register", component: <Register1 /> },
+  { path: "/pages-recoverpw", component: <RecoverPassword /> },
+  { path: "/pages-lock-screen", component: <LockScreen /> },
 ];
 
 export { authProtectedRoutes, publicRoutes };

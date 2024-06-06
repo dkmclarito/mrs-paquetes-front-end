@@ -31,7 +31,7 @@ const GestionIncidentes = () => {
       usuarioAsignado: "Carlos Rodríguez",
       solucion: "Contactar nuevamente al cliente",
     },
-
+   
   ]);
 
   // Función para eliminar un incidente

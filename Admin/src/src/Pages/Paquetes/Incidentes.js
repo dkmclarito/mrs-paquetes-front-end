@@ -3,7 +3,7 @@ import { Card, CardBody, Col, Row, Container, Button, Form, FormGroup, Label, In
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
-const Incidencias = () => {
+const Incidentes = () => {
   document.title = "Incidencias | Mr. Paquetes";
 
   const [incidencias, setIncidencias] = useState([
@@ -18,7 +18,7 @@ const Incidencias = () => {
       idUsuarioAsignado: 3,
       solucion: "Volver a empacar",
     },
-
+  
   ]);
 
   const handleInputChange = (e, index) => {
@@ -211,4 +211,4 @@ const Incidencias = () => {
   );
 };
 
-export default Incidencias;
+export default Incidentes;
