@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardBody, Col, Row, Container, Button } from "reactstrap";
+import { Card, CardBody, Col, Row, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
@@ -26,11 +26,26 @@ const GestionEmpleados = () => {
     // Puedes agregar más empleados aquí
   ]);
 
+  const [modalEditar, setModalEditar] = useState(false);
+  const [empleadoEditado, setEmpleadoEditado] = useState(null);
+
   // Función para eliminar un empleado
   const eliminarEmpleado = (idEmpleado) => {
     // Actualizar el estado filtrando el empleado a eliminar
     const nuevosEmpleados = empleados.filter(empleado => empleado.id !== idEmpleado);
     setEmpleados(nuevosEmpleados);
+  };
+
+  // Función para abrir el modal de edición
+  const toggleModalEditar = (empleado) => {
+    setEmpleadoEditado(empleado);
+    setModalEditar(!modalEditar);
+  };
+
+  // Función para guardar los cambios después de editar
+  const guardarCambiosEmpleado = () => {
+    // Aquí deberías implementar la lógica para guardar los cambios del empleado
+    setModalEditar(false); // Cerrar el modal después de guardar cambios
   };
 
   return (
@@ -71,9 +86,12 @@ const GestionEmpleados = () => {
                               >
                                 <i className="fas fa-times"></i>
                               </Button>
-                              <Link to={`/editar-empleado/${empleado.id}`} className="btn btn-icon btn-primary">
+                              <Button
+                                className="btn-icon btn-primary"
+                                onClick={() => toggleModalEditar(empleado)}
+                              >
                                 <i className="fas fa-pencil-alt"></i>
-                              </Link>
+                              </Button>
                             </td>
                           </tr>
                         ))}
@@ -95,6 +113,33 @@ const GestionEmpleados = () => {
           </Row>
         </Container>
       </div>
+
+      {/* Modal para editar empleado */}
+      <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
+        <ModalHeader toggle={toggleModalEditar}>Editar Empleado</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="nombre">Nombre</Label>
+            <Input type="text" id="nombre" value={empleadoEditado ? empleadoEditado.nombre : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, nombre: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input type="email" id="email" value={empleadoEditado ? empleadoEditado.email : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, email: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="departamento">Departamento</Label>
+            <Input type="text" id="departamento" value={empleadoEditado ? empleadoEditado.departamento : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, departamento: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="telefono">Teléfono</Label>
+            <Input type="text" id="telefono" value={empleadoEditado ? empleadoEditado.telefono : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, telefono: e.target.value})} />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={guardarCambiosEmpleado}>Guardar Cambios</Button>{' '}
+          <Button color="secondary" onClick={toggleModalEditar}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
     </React.Fragment>
   );
 };

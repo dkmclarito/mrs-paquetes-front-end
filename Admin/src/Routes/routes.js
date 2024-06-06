@@ -1,19 +1,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-//Dashboard
+// Dashboard
 import Dashboard from "../Pages/Dashboard";
 
 // Import Calender
 import Calender from "../Pages/Calender";
 
-
-
-
 // Import Clientes
 import GestionClientes from "../Pages/Clientes/GestionClientes.js";
 import AgregarClientes from "../Pages/Clientes/AgregarClientes.js";
-
 
 // Import Authentication pages
 import Login from "../Pages/Authentication/Login";
@@ -62,7 +58,6 @@ import UiToasts from "../Pages/UiElements/UiToasts";
 import UiVideo from "../Pages/UiElements/UiVideo";
 import UiPopovers from "../Pages/UiElements/UiPopovers&Tooltips";
 
-
 // Import Forms
 import FormEditors from "../Pages/Forms/FormEditors";
 import FormUpload from "../Pages/Forms/FormUpload";
@@ -78,7 +73,6 @@ import BasicTable from "../Pages/Tables/BasicTable.js";
 import ListJs from "../Pages/Tables/ListTables/ListTables";
 import DataTable from "../Pages/Tables/DataTables/DataTables";
 
-
 // Import Charts
 import ApexCharts from "../Pages/Charts/ApexCharts";
 import ChartJs from "../Pages/Charts/ChartjsCharts";
@@ -90,7 +84,7 @@ import JknobCharts from "../Pages/Charts/JqueryKnobCharts";
 import IconMaterialdesign from "../Pages/Icons/IconMaterialdesign";
 import IconFontawesome from "../Pages/Icons/IconFontAwesome";
 import IconDripicons from "../Pages/Icons/IconDrip";
-import IconBoxicons from "../Pages/Icons/IconBoxicons"
+import IconBoxicons from "../Pages/Icons/IconBoxicons";
 
 // Import Map Pages
 import VectorMaps from "../Pages/Maps/VectorMap";
@@ -100,7 +94,12 @@ import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
 import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
 import AgregarEmpleado from "../Pages/Empleados/Agregar_Empleados.js";
 import Tracking from "../Pages/Paquetes/Tracking.js";
-
+import RouteSearch from "../Pages/Rutas/RouteSearch.js";
+import BusquedaVehiculos from "../Pages/Vehiculos/BusquedaVehiculos.js";
+import AgregarVehiculos from "../Pages/Vehiculos/AgregarVehiculos.js";
+import GestionVehiculos from "../Pages/Vehiculos/GestionVehiculos.js";
+import GestionRutas from "../Pages/Rutas/GestionRutas.js";
+import AgregarRutas from "../Pages/Rutas/AgregarRutas.js";
 
 
 
@@ -127,6 +126,16 @@ const authProtectedRoutes = [
   // Clientes
   { path: "/GestionClientes", component: <GestionClientes/> },
   { path: "/AgregarClientes", component: <AgregarClientes/> },
+
+  // Rutas 
+  { path: "/RouteSearch", component: <RouteSearch /> },
+  { path: "/AgregarRutas", component: <AgregarRutas/> },
+  { path: "/GestionRutas", component: <GestionRutas/> },
+
+  // Vehículos 
+  { path: "/BusquedaVehiculos", component: <BusquedaVehiculos/> },
+  { path: "/AgregarVehiculos", component: <AgregarVehiculos/> },
+  { path: "/GestionVehiculos", component: <GestionVehiculos/> },
 
   // Utility Pages
   { path: "/pages-starter", component: <StarterPage /> },

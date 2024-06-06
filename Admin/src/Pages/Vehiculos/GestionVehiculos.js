@@ -18,68 +18,65 @@ import {
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
-const GestionUsuarios = () => {
-  document.title = "Usuarios | Mr. Paquetes";
+const GestionVehiculos = () => {
+  document.title = "Vehículos | Nombre de tu Aplicación";
 
-  const [usuarios, setUsuarios] = useState([
+  const [vehiculos, setVehiculos] = useState([
     {
       id: 1,
-      nombre: "Carlos García",
-      email: "carlos@example.com",
-      rol: "Administrador",
-      telefono: "555-123-4567",
-      fechaRegistro: "2024-05-24",
+      marca: "Toyota",
+      modelo: "Corolla",
+      año: "2022",
+      placa: "P-12345",
+      color: "Rojo",
     },
     {
       id: 2,
-      nombre: "Ana Torres",
-      email: "ana@example.com",
-      rol: "Usuario",
-      telefono: "123-456-7890",
-      fechaRegistro: "2024-05-23",
+      marca: "Honda",
+      modelo: "Civic",
+      año: "2023",
+      placa: "P-67890",
+      color: "Azul",
     },
   ]);
 
   const [modalEditar, setModalEditar] = useState(false);
-  const [usuarioEditado, setUsuarioEditado] = useState({
+  const [vehiculoEditado, setVehiculoEditado] = useState({
     id: null,
-    nombre: "",
-    email: "",
-    rol: "",
-    telefono: "",
-    fechaRegistro: "",
+    marca: "",
+    modelo: "",
+    año: "",
+    placa: "",
+    color: "",
   });
 
-  const toggleModalEditar = (usuario) => {
-    setUsuarioEditado(usuario);
+  const toggleModalEditar = (vehiculo) => {
+    setVehiculoEditado(vehiculo);
     setModalEditar(!modalEditar);
   };
 
   const guardarCambios = () => {
-    // Implementación para guardar los cambios en el usuario editado
-    console.log("Guardando cambios:", usuarioEditado);
-    // Cerrar el modal después de guardar
+    console.log("Guardando cambios:", vehiculoEditado);
     setModalEditar(false);
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUsuarioEditado({ ...usuarioEditado, [name]: value });
+    setVehiculoEditado({ ...vehiculoEditado, [name]: value });
   };
 
-  const eliminarUsuario = (idUsuario) => {
-    // Filtrar el usuario a eliminar del estado
-    const nuevosUsuarios = usuarios.filter(
-      (usuario) => usuario.id !== idUsuario
+  const eliminarVehiculo = (idVehiculo) => {
+    const nuevosVehiculos = vehiculos.filter(
+      (vehiculo) => vehiculo.id !== idVehiculo
     );
-    setUsuarios(nuevosUsuarios);
+    setVehiculos(nuevosVehiculos);
   };
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <Breadcrumbs title="Usuarios" breadcrumbItem="Listado" />
+          <Breadcrumbs title="Vehículos" breadcrumbItem="Listado" />
           <Row>
             <Col lg={12}>
               <Card>
@@ -89,35 +86,35 @@ const GestionUsuarios = () => {
                       <thead className="thead-light">
                         <tr>
                           <th>ID</th>
-                          <th>Nombre</th>
-                          <th>Email</th>
-                          <th>Rol</th>
-                          <th>Teléfono</th>
-                          <th>Fecha de Registro</th>
+                          <th>Marca</th>
+                          <th>Modelo</th>
+                          <th>Año</th>
+                          <th>Placa</th>
+                          <th>Color</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {usuarios.map((usuario) => (
-                          <tr key={usuario.id}>
-                            <td>{usuario.id}</td>
-                            <td>{usuario.nombre}</td>
-                            <td>{usuario.email}</td>
-                            <td>{usuario.rol}</td>
-                            <td>{usuario.telefono}</td>
-                            <td>{usuario.fechaRegistro}</td>
+                        {vehiculos.map((vehiculo) => (
+                          <tr key={vehiculo.id}>
+                            <td>{vehiculo.id}</td>
+                            <td>{vehiculo.marca}</td>
+                            <td>{vehiculo.modelo}</td>
+                            <td>{vehiculo.año}</td>
+                            <td>{vehiculo.placa}</td>
+                            <td>{vehiculo.color}</td>
                             <td>
                               <Button
                                 className="me-2 btn-icon btn-danger"
-                                onClick={() => eliminarUsuario(usuario.id)}
+                                onClick={() => toggleModalEditar(vehiculo)}
                               >
-                                <i className="fas fa-times"></i>
+                                <i className="fas fa-pencil-alt"></i>
                               </Button>
                               <Button
                                 className="btn-icon btn-primary"
-                                onClick={() => toggleModalEditar(usuario)}
+                                onClick={() => eliminarVehiculo(vehiculo.id)}
                               >
-                                <i className="fas fa-pencil-alt"></i>
+                                <i className="fas fa-times"></i>
                               </Button>
                             </td>
                           </tr>
@@ -133,10 +130,10 @@ const GestionUsuarios = () => {
             <Col lg={12}>
               <div className="text-lg-end mt-3">
                 <Link
-                  to="/agregar-usuarios"
+                  to="/agregarvehiculos"
                   className="btn btn-primary custom-button"
                 >
-                  <i className="fas fa-plus"></i> Agregar Usuario
+                  <i className="fas fa-plus"></i> Agregar Vehículo
                 </Link>
               </div>
             </Col>
@@ -144,58 +141,58 @@ const GestionUsuarios = () => {
         </Container>
       </div>
 
-      {/* Modal para editar usuario */}
+      {/* Modal para editar vehículo */}
       <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
-        <ModalHeader toggle={toggleModalEditar}>Editar Usuario</ModalHeader>
+        <ModalHeader toggle={toggleModalEditar}>Editar Vehículo</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="nombre">Nombre</Label>
+              <Label for="marca">Marca</Label>
               <Input
                 type="text"
-                name="nombre"
-                id="nombre"
-                value={usuarioEditado.nombre}
+                name="marca"
+                id="marca"
+                value={vehiculoEditado.marca}
                 onChange={handleInputChange}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="email">Email</Label>
+              <Label for="modelo">Modelo</Label>
               <Input
-                type="email"
-                name="email"
-                id="email"
-                value={usuarioEditado.email}
+                type="text"
+                name="modelo"
+                id="modelo"
+                value={vehiculoEditado.modelo}
                 onChange={handleInputChange}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="rol">Rol</Label>
+              <Label for="año">Año</Label>
               <Input
                 type="text"
-                name="rol"
-                id="rol"
-                value={usuarioEditado.rol}
+                name="año"
+                id="año"
+                value={vehiculoEditado.año}
                 onChange={handleInputChange}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="telefono">Teléfono</Label>
+              <Label for="placa">Placa</Label>
               <Input
                 type="text"
-                name="telefono"
-                id="telefono"
-                value={usuarioEditado.telefono}
+                name="placa"
+                id="placa"
+                value={vehiculoEditado.placa}
                 onChange={handleInputChange}
               />
             </FormGroup>
             <FormGroup>
-              <Label for="fechaRegistro">Fecha de Registro</Label>
+              <Label for="color">Color</Label>
               <Input
                 type="text"
-                name="fechaRegistro"
-                id="fechaRegistro"
-                value={usuarioEditado.fechaRegistro}
+                name="color"
+                id="color"
+                value={vehiculoEditado.color}
                 onChange={handleInputChange}
               />
             </FormGroup>
@@ -214,4 +211,4 @@ const GestionUsuarios = () => {
   );
 };
 
-export default GestionUsuarios;
+export default GestionVehiculos;

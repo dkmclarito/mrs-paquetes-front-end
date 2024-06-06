@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Card, CardBody, Col, Row, Container, Button } from "reactstrap";
+import { Card, CardBody, Col, Row, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import "../style.css";
- 
 
 const Clientes = () => {
   document.title = "Clientes | Nombre de tu Aplicación";
@@ -25,14 +24,24 @@ const Clientes = () => {
       telefono: "123-456-7890",
       fechaRegistro: "2024-05-23",
     },
-    // Puedes agregar más clientes aquí
   ]);
 
-  // Función para eliminar un cliente
+  const [modalEditar, setModalEditar] = useState(false);
+  const [clienteEditado, setClienteEditado] = useState(null);
+
   const eliminarCliente = (idCliente) => {
-    // Actualizar el estado filtrando el cliente a eliminar
     const nuevosClientes = clientes.filter(cliente => cliente.id !== idCliente);
     setClientes(nuevosClientes);
+  };
+
+  const toggleModalEditar = (cliente) => {
+    setClienteEditado(cliente);
+    setModalEditar(!modalEditar);
+  };
+
+  const guardarCambiosCliente = () => {
+    // Aqui pondríamos la APi
+    setModalEditar(false);
   };
 
   return (
@@ -67,15 +76,18 @@ const Clientes = () => {
                             <td>{cliente.telefono}</td>
                             <td>{cliente.fechaRegistro}</td>
                             <td>
-                            <Button
-        className="me-2 btn-icon btn-danger"
-        onClick={() => eliminarCliente(cliente.id)}
-      >
-        <i className="fas fa-times"></i>
-      </Button>
-      <Link to={`/editar-cliente/${cliente.id}`} className="btn btn-icon btn-primary">
-        <i className="fas fa-pencil-alt"></i>
-      </Link>
+                              <Button
+                                className="me-2 btn-icon btn-danger"
+                                onClick={() => eliminarCliente(cliente.id)}
+                              >
+                                <i className="fas fa-times"></i>
+                              </Button>
+                              <Button
+                                className="btn-icon btn-primary"
+                                onClick={() => toggleModalEditar(cliente)}
+                              >
+                                <i className="fas fa-pencil-alt"></i>
+                              </Button>
                             </td>
                           </tr>
                         ))}
@@ -88,15 +100,42 @@ const Clientes = () => {
           </Row>
           <Row>
             <Col lg={12}>
-            <div className="text-lg-end mt-3">
-      <Link to="/AgregarClientes" className="btn btn-primary custom-button">
-        <i className="fas fa-plus"></i> Agregar Cliente
-      </Link>
-    </div>
+              <div className="text-lg-end mt-3">
+                <Link to="/AgregarClientes" className="btn btn-primary custom-button">
+                  <i className="fas fa-plus"></i> Agregar Cliente
+                </Link>
+              </div>
             </Col>
           </Row>
         </Container>
       </div>
+
+      {/* Modal para editar cliente */}
+      <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
+        <ModalHeader toggle={toggleModalEditar}>Editar Cliente</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="nombre">Nombre</Label>
+            <Input type="text" id="nombre" value={clienteEditado ? clienteEditado.nombre : ""} onChange={(e) => setClienteEditado({...clienteEditado, nombre: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="email">Email</Label>
+            <Input type="email" id="email" value={clienteEditado ? clienteEditado.email : ""} onChange={(e) => setClienteEditado({...clienteEditado, email: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="ubicacion">Ubicación</Label>
+            <Input type="text" id="ubicacion" value={clienteEditado ? clienteEditado.ubicacion : ""} onChange={(e) => setClienteEditado({...clienteEditado, ubicacion: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="telefono">Teléfono</Label>
+            <Input type="text" id="telefono" value={clienteEditado ? clienteEditado.telefono : ""} onChange={(e) => setClienteEditado({...clienteEditado, telefono: e.target.value})} />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={guardarCambiosCliente}>Guardar Cambios</Button>{' '}
+          <Button color="secondary" onClick={toggleModalEditar}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
     </React.Fragment>
   );
 };

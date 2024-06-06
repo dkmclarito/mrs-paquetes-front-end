@@ -43,15 +43,16 @@ const SidebarData = [
             label: "Vehículos",
             icon: "mdi mdi-truck-delivery",
             subItem: [
-                { sublabel: "Gestión de vehículos", link: "/vehiculos" },
+                { sublabel: "Gestión de vehículos", link: "/GestionVehiculos" },
+                { sublabel: "Búsqueda de vehículos", link: "/BusquedaVehiculos" },
             ],        
     },
     {
         label: "Rutas",
         icon: "mdi mdi-map-marker-distance",
         subItem: [
-            { sublabel: "Asignación de rutas", link: "/tables-basic" },
-            { sublabel: "Destino", link: "/tables-listjs" },
+            { sublabel: "Gestión de Rutas", link: "/GestionRutas" },
+            { sublabel: "Búsqueda de Rutas", link: "/Routesearch" },
             { sublabel: "Bodegas", link: "/table-datatables" },
             { sublabel: "Direcciones", link: "/table-datatables" },
         ],
