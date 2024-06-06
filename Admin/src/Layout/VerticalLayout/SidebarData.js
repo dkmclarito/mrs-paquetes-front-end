@@ -29,7 +29,7 @@ const SidebarData = [
         icon: "mdi mdi-package-variant",
         subItem: [
             { sublabel: "Tracking", link: "/Tracking" },
-            { sublabel: "Incidentes", link: "/auth-recoverpw" },
+            { sublabel: "Incidentes", link: "/GestionIncidentes" },
                 ],
     },
     {

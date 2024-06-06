@@ -100,6 +100,8 @@ import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
 import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
 import AgregarEmpleado from "../Pages/Empleados/Agregar_Empleados.js";
 import Tracking from "../Pages/Paquetes/Tracking.js";
+import GestionIncidentes from "../Pages/Paquetes/GestionIncidentes.js";
+import Incidentes from "../Pages/Paquetes/Incidentes.js";
 
 
 
@@ -117,6 +119,8 @@ const authProtectedRoutes = [
    // Paquetes
   
    { path: "/Tracking", component: <Tracking /> },
+   { path: "/GestionIncidentes", component: <GestionIncidentes /> },
+   { path: "/Incidentes", component: <Incidentes /> },
 
 // Empleados 
 { path: "/GestionEmpleados", component: <GestionEmpleados/> },
