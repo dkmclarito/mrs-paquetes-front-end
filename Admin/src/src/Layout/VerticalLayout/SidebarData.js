@@ -30,7 +30,7 @@ const SidebarData = [
         subItem: [
             { sublabel: "Presentación", link: "/auth-login" },
             { sublabel: "Tracking", link: "/auth-register" },
-            { sublabel: "Incidentes", link: "/auth-recoverpw" },
+            { sublabel: "Incidentes", link: "/GestionIncidentes" },
                 ],
     },
     {

@@ -94,12 +94,7 @@ import AgregarUsuarios from "../Pages/Usuarios/AgregarUsuarios.js";
 import GestionEmpleados from "../Pages/Empleados/GestionEmpleados.js";
 import AgregarEmpleado from "../Pages/Empleados/Agregar_Empleados.js";
 import Tracking from "../Pages/Paquetes/Tracking.js";
-import RouteSearch from "../Pages/Rutas/RouteSearch.js";
-import BusquedaVehiculos from "../Pages/Vehiculos/BusquedaVehiculos.js";
-import AgregarVehiculos from "../Pages/Vehiculos/AgregarVehiculos.js";
-import GestionVehiculos from "../Pages/Vehiculos/GestionVehiculos.js";
-import GestionRutas from "../Pages/Rutas/GestionRutas.js";
-import AgregarRutas from "../Pages/Rutas/AgregarRutas.js";
+
 
 
 
@@ -116,6 +111,8 @@ const authProtectedRoutes = [
    // Paquetes
   
    { path: "/Tracking", component: <Tracking /> },
+   { path: "/GestionIncidentes", component: <GestionIncidentes /> },
+   { path: "/Incidentes", component: <Incidentes /> },
 
 // Empleados 
 { path: "/GestionEmpleados", component: <GestionEmpleados/> },
