@@ -19,7 +19,6 @@ const AgregarUsuarios = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes realizar la lógica para enviar los datos a la base de datos o realizar otras acciones
   };
 
   return (

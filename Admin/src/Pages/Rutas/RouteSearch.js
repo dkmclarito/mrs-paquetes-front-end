@@ -7,14 +7,11 @@ import { Link } from "react-router-dom";
 const RouteSearch = () => {
   document.title = "Búsqueda de Rutas";
 
-  // Estado para el número de ruta
   const [routeNumber, setRouteNumber] = useState("");
   const [routeData, setRouteData] = useState(null);
 
-  // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para buscar y cargar datos de la ruta
     handleRouteAssignment(routeNumber);
   };
   const handleRouteAssignment = async (routeNumber) => {
