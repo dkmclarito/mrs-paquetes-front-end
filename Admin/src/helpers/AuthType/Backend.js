@@ -14,12 +14,12 @@ let users = [
   },
 ];
 
-const fakeBackend = () => {
+const Backend = () => {
   // This sets the mock adapter on the default instance
   const mock = new MockAdapter(axios, { onNoMatch: "passthrough" });
   // const mock = new MockAdapter(axios);
 
-  mock.onPost(url.POST_FAKE_REGISTER).reply((config) => {
+  mock.onPost(url.POST_REGISTER).reply((config) => {
     const user = JSON.parse(config["data"]);
     users.push(user);
     return new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost(url.POST_FAKE_LOGIN).reply((config) => {
+  mock.onPost(url.POST_LOGIN).reply((config) => {
     const user = JSON.parse(config["data"]);
     const validUser = users.filter(
       (usr) => usr.email === user.email && usr.password === user.password
@@ -48,7 +48,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost("/fake-forget-pwd").reply((config) => {
+  mock.onPost("/forget-pwd").reply((config) => {
     // User needs to check that user is eXist or not and send mail for Reset New password
 
     return new Promise((resolve, reject) => {
@@ -133,7 +133,7 @@ const fakeBackend = () => {
     });
   });
 
-  mock.onPost("/post-fake-profile").reply((config) => {
+  mock.onPost("/post-profile").reply((config) => {
     const user = JSON.parse(config["data"]);
 
     const validUser = users.filter((usr) => usr.uid === user.idx);
@@ -261,4 +261,4 @@ const fakeBackend = () => {
   });
 };
 
-export default fakeBackend;
+export default Backend;

@@ -15,8 +15,8 @@ const isUserAuthenticated = () => {
 };
 
 // Register Method
-const postFakeRegister = (data) => {
-  return api.create(url.POST_FAKE_REGISTER, data)
+const postRegister = (data) => {
+  return api.create(url.POST_REGISTER, data)
     .catch(err => {
       let message;
       if (err.response && err.response.status) {
@@ -40,15 +40,15 @@ const postFakeRegister = (data) => {
 };
 
 // Login Method
-const postFakeLogin = data => api.create(url.POST_FAKE_LOGIN, data);
+const postLogin = data => api.create(url.POST_LOGIN, data);
 
 // postForgetPwd
-const postFakeForgetPwd = data => api.create(url.POST_FAKE_PASSWORD_FORGET, data);
+const postForgetPwd = data => api.create(url.POST_PASSWORD_FORGET, data);
 
 // Edit profile
 const postJwtProfile = data => api.create(url.POST_EDIT_JWT_PROFILE, data);
 
-const postFakeProfile = data => api.create(url.POST_EDIT_PROFILE, data);
+const postProfile = data => api.create(url.POST_EDIT_PROFILE, data);
 
 // Register Method
 const postJwtRegister = (url,data) => {
@@ -76,10 +76,10 @@ const postJwtRegister = (url,data) => {
 };
 
 // Login Method
-const postJwtLogin = data => api.create(url.POST_FAKE_JWT_LOGIN, data);
+const postJwtLogin = data => api.create(url.POST_JWT_LOGIN, data);
 
 // postForgetPwd
-const postJwtForgetPwd = data => api.create(url.POST_FAKE_JWT_PASSWORD_FORGET, data);
+const postJwtForgetPwd = data => api.create(url.POST_JWT_PASSWORD_FORGET, data);
 
 // postSocialLogin
 export const postSocialLogin = data => api.create(url.SOCIAL_LOGIN, data);
@@ -103,10 +103,10 @@ export const getCategories = () => api.get(url.GET_CATEGORIES);
 export {
   getLoggedInUser,
   isUserAuthenticated,
-  postFakeRegister,
-  postFakeLogin,
-  postFakeProfile,
-  postFakeForgetPwd,
+  postRegister,
+  postLogin,
+  postProfile,
+  postForgetPwd,
   postJwtRegister,
   postJwtLogin,
   postJwtForgetPwd,

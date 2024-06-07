@@ -4,11 +4,11 @@ import Routes from "./Routes/index";
 // Import Scss
 import './assets/scss/theme.scss';
 
-// Fake Backend 
-import fakeBackend from "./helpers/AuthType/fakeBackend";
+// Backend 
+import Backend from "./helpers/AuthType/Backend";
 
 // Activating fake backend
-fakeBackend();
+Backend();
 
 // Firebase
 // Import Firebase Configuration file
