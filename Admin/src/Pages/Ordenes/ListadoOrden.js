@@ -132,11 +132,11 @@ const AgregarOrden = () => {
 
       {/* Modal para editar ruta */}
       <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
-        <ModalHeader toggle={toggleModalEditar}>Editar Ruta</ModalHeader>
+        <ModalHeader toggle={toggleModalEditar}>Editar Orden</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
-              <Label for="id_destino">Destino</Label>
+              <Label for="id_destino">Acargo de</Label>
               <Input
                 type="text"
                 name="id_destino"
@@ -146,7 +146,7 @@ const AgregarOrden = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="nombre">Nombre</Label>
+              <Label for="nombre">Recibe</Label>
               <Input
                 type="text"
                 name="nombre"
@@ -156,7 +156,7 @@ const AgregarOrden = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="id_bodega">Bodega</Label>
+              <Label for="id_bodega">Estado</Label>
               <Input
                 type="text"
                 name="id_bodega"
@@ -166,37 +166,7 @@ const AgregarOrden = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label for="id_estado">Estado</Label>
-              <Input
-                type="text"
-                name="id_estado"
-                id="id_estado"
-                value={rutaEditada.id_estado || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="distancia_km">Distancia (km)</Label>
-              <Input
-                type="text"
-                name="distancia_km"
-                id="distancia_km"
-                value={rutaEditada.distancia_km || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="duracion_aproximada">Duración Aprox. (hrs)</Label>
-              <Input
-                type="text"
-                name="duracion_aproximada"
-                id="duracion_aproximada"
-                value={rutaEditada.duracion_aproximada || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="fecha_programada">Fecha Programada</Label>
+              <Label for="fecha_programada">Fecha de Entrega</Label>
               <Input
                 type="date"
                 name="fecha_programada"
