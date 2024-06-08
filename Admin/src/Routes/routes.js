@@ -102,7 +102,8 @@ import GestionRutas from "../Pages/Rutas/GestionRutas.js";
 import AgregarRutas from "../Pages/Rutas/AgregarRutas.js";
 import GestionIncidentes from "../Pages/Paquetes/GestionIncidentes.js";
 import Incidentes from "../Pages/Paquetes/Incidentes.js";
-import AgregarOrden from "../Pages/Ordenes/AgregarOrden.js";
+import ListadoOrden from "../Pages/Ordenes/ListadoOrden.js";
+import NuevaOrden from "../Pages/Ordenes/NuevaOrden.js";
 
 const authProtectedRoutes = [
   //dashboard
@@ -137,8 +138,8 @@ const authProtectedRoutes = [
 
     // Ordenes 
     //{ path: "/BodegaOrden", component: <BodegaOrden/> },
-    { path: "/AgregarOrden", component: <AgregarOrden/> },
-    //{ path: "/GestionOrden", component: <GestionOrden/> },
+    { path: "/ListadoOrden", component: <ListadoOrden/> },
+    { path: "/NuevaOrden", component: <NuevaOrden/> },
     //{ path: "/DireccionesOrden", component: <DireccionesOrden /> },
 
   // Vehículos 

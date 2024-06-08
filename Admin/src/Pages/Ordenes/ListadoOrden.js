@@ -10,7 +10,6 @@ const AgregarOrden = () => {
   const [rutas, setRutas] = useState([
     {
       id: 1,
-      id_paquete: 2,
       a_cargo_de: "Santos Argueta",
       cliente_recibe: "Margarita Alfaro",
       id_paquete: 1,
@@ -120,10 +119,10 @@ const AgregarOrden = () => {
             <Col lg={12}>
               <div className="text-lg-end mt-3">
                 <Link
-                  to="/agregarrutas"
+                  to="/NuevaOrden"
                   className="btn btn-primary custom-button"
                 >
-                  <i className="fas fa-plus"></i> Agregar Ruta
+                  <i className="fas fa-plus"></i> Agregar Orden
                 </Link>
               </div>
             </Col>

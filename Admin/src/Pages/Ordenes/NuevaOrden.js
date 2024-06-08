@@ -1,230 +1,188 @@
 import React, { useState } from "react";
-import { Card, CardBody, Col, Row, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
+import { Card, CardBody, Col, Row, Container, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
+import "../style.css";
+//import AgregarOrden from "./ListadoOrden";
 
 const NuevaOrden = () => {
-  document.title = "Nueva Orden | Mr. Paquetes";
+  document.title = "Agregar Orden | Mr. Paquetes";
 
-  // Estado para almacenar las rutas
-  const [rutas, setRutas] = useState([
-    {
-      id: 1,
-      id_destino: 2,
-      nombre: "Ruta A",
-      id_bodega: 1,
-      id_estado: 1,
-      distancia_km: 100.25,
-      duracion_aproximada: 2.5,
-      fecha_programada: "2024-06-10",
-    },
-    {
-      id: 2,
-      id_destino: 1,
-      nombre: "Ruta B",
-      id_bodega: 2,
-      id_estado: 2,
-      distancia_km: 150.75,
-      duracion_aproximada: 3.2,
-      fecha_programada: "2024-06-12",
-    },
-  ]);
+  // Datos quemados para IDS
+  const clienteEntrega = ["Jose Ortiz", "Eusebio Coca", "Gerardo Ortiz"];
+  const clienteRecibe = ["Santos Membreño", "Jessica Díaz", "Emeli Sofía"];
+  const TipoEntrega = ["Estándar", "Urgente"];
+  const TipoPago = ["Contra Entrega", "Otro"];
+  const EstadoPaquete = ["En tránsito", "Entregado", "En Bodega"];
+  const ValidacionEntrega = ["Con firma", "Sin Firma"];
 
-  const [modalEditar, setModalEditar] = useState(false);
-  const [rutaEditada, setRutaEditada] = useState({
-    id: null,
-    id_destino: "",
-    nombre: "",
-    id_bodega: "",
-    id_estado: "",
-    distancia_km: "",
-    duracion_aproximada: "",
-    fecha_programada: "",
-  });
+ 
+  const [clienteQueEntrega, setClienteEntrega] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [clienteQueRecibe, setclienteRecibe] = useState("");
+  const [instruccionEntrega, setInstruccionEntrega] = useState("");
+  const [tipoDeEntrega, setTipoEntrega] = useState("");
+  const [precioEnv, setPrecio] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [costoAdicional, setCostoAdicional] = useState("");
+  const [TipoDePago, setTipoPago] = useState("");
+  const [estadoDePaquete, setEstadoPaquete] = useState("");
+  const [ValidacionDeEntrega, setValidacionDeEntrega] = useState("");
+  const [fechaIngreso, setFechaIngreso] = useState("");
+  const [fechaEntrega, setFechaEntrega] = useState("");
+  
 
-  // Función para abrir/cerrar la modal de edición
-  const toggleModalEditar = (ruta) => {
-    setRutaEditada(ruta);
-    setModalEditar(!modalEditar);
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
 
-  // Función para guardar los cambios al editar una ruta
-  const guardarCambios = () => {
-    console.log("Guardando cambios:", rutaEditada);
-    setModalEditar(false);
-  };
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    const newValue = value === "" ? null : value;
-    setRutaEditada({ ...rutaEditada, [name]: newValue });
-  };
-
-  // Función para eliminar una ruta
-  const eliminarRuta = (idRuta) => {
-    const nuevasRutas = rutas.filter((ruta) => ruta.id !== idRuta);
-    setRutas(nuevasRutas);
-  };
 
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <Breadcrumbs title="Rutas" breadcrumbItem="Listado" />
+          <Breadcrumbs title="Ordenes" breadcrumbItem="Agregar Orden" />
           <Row>
             <Col lg={12}>
-              <Card>
+              <h4 className="header-title mb-3">Registro de Ordenes</h4>
+              <Card className="shadow-sm border-0">
                 <CardBody>
-                  <div className="table-responsive">
-                    <table className="table table-centered table-nowrap mb-0">
-                      <thead className="thead-light">
-                        <tr>
-                          <th>ID</th>
-                          <th>Destino</th>
-                          <th>Nombre</th>
-                          <th>Bodega</th>
-                          <th>Estado</th>
-                          <th>Distancia (km)</th>
-                          <th>Duración Aprox. (hrs)</th>
-                          <th>Fecha Programada</th>
-                          <th>Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {rutas.map((ruta) => (
-                          <tr key={ruta.id}>
-                            <td>{ruta.id}</td>
-                            <td>{ruta.id_destino}</td>
-                            <td>{ruta.nombre}</td>
-                            <td>{ruta.id_bodega}</td>
-                            <td>{ruta.id_estado}</td>
-                            <td>{ruta.distancia_km}</td>
-                            <td>{ruta.duracion_aproximada}</td>
-                            <td>{ruta.fecha_programada}</td>
-                            <td>
-                              <Button
-                                className="me-2 btn-icon btn-danger"
-                                onClick={() => toggleModalEditar(ruta)}
-                              >
-                                <i className="fas fa-pencil-alt"></i>
-                              </Button>
-                              <Button
-                                className="btn-icon btn-primary"
-                                onClick={() => eliminarRuta(ruta.id)}
-                              >
-                                <i className="fas fa-times"></i>
-                              </Button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <Form onSubmit={handleSubmit}>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="clienteEntrega">A cargo de</Label>
+                          <Input type="select" id="clienteEntrega" value={clienteQueEntrega} onChange={(e) => setClienteEntrega(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {clienteEntrega.map((cliE, index) => (
+                              <option key={index} value={cliE}>{cliE}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="dui">Nº de cliente a cargo</Label>
+                          <Input type="text" id="dui" placeholder="Ej. 7496-1667" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="clienteRecibe">Cliente que recibe</Label>
+                          <Input type="select" id="clienteRecibe" value={clienteQueRecibe} onChange={(e) => setclienteRecibe(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {clienteRecibe.map((cliR, index) => (
+                              <option key={index} value={cliR}>{cliR}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="direccion">Dirección de entrega</Label>
+                          <Input type="text" id="direccion" placeholder="Ingrese la dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="tipoEntrega">Tipo de entrega</Label>
+                          <Input type="select" id="tipoEntrega" value={tipoDeEntrega} onChange={(e) => setTipoEntrega(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {TipoEntrega.map((tipoE, index) => (
+                              <option key={index} value={tipoE}>{tipoE}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="instruccionEntrega">Instruccion de entrega</Label>
+                          <Input type="text" id="instruccionEntrega" placeholder="Ingrese instrucciones" value={instruccionEntrega} onChange={(e) => setInstruccionEntrega(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row form>
+                      <Col md={4}>
+                        <FormGroup className="form-group-custom">
+                          <Label for="precio">Precio de envío</Label>
+                          <Input type="text" id="precio" placeholder="Ingrese el precio" value={precioEnv} onChange={(e) => setPrecio(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                      <Col md={4}>
+                        <FormGroup className="form-group-custom">
+                          <Label for="costoAdicional">Costo adicional</Label>
+                          <Input type="text" id="costoAdicional" placeholder="Ingrese el precio" value={costoAdicional} onChange={(e) => setCostoAdicional(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                      <Col md={4}>
+                        <FormGroup className="form-group-custom">
+                          <Label for="cargo">Tipo de pago</Label>
+                          <Input type="select" id="cargo" value={TipoDePago} onChange={(e) => setTipoPago(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {TipoPago.map((tipoP, index) => (
+                              <option key={index} value={tipoP}>{tipoP}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="EstadoPaquete">Estado del paquete</Label>
+                          <Input type="select" id="EstadoPaquete" value={estadoDePaquete} onChange={(e) => setEstadoPaquete(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {EstadoPaquete.map((estadoP, index) => (
+                              <option key={index} value={estadoP}>{estadoP}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                        <Label for="EstadoPaquete">Validación de entrega</Label>
+                          <Input type="select" id="EstadoPaquete" value={ValidacionDeEntrega} onChange={(e) => setValidacionDeEntrega(e.target.value)} required className="form-control-lg custom-input">
+                            <option value="">Seleccione</option>
+                            {ValidacionEntrega.map((valEnt, index) => (
+                              <option key={index} value={valEnt}>{valEnt}</option>
+                            ))}
+                          </Input>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                    <Row form>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                          <Label for="fechaIngreso">Fecha de ingreso</Label>
+                          <Input type="date" id="fechaIngreso" value={fechaIngreso} onChange={(e) => setFechaIngreso(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup className="form-group-custom">
+                          <Label for="fechaEntrega">Fecha de entrega</Label>
+                          <Input type="date" id="fechaEntrega" value={fechaEntrega} onChange={(e) => setFechaEntrega(e.target.value)} required className="form-control-lg custom-input" />
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  
+                   
+                    <Button type="submit" className="btn-lg custom-button">
+                      Agregar Orden
+                    </Button>
+                    <Link to="/ListadoOrden" className="btn btn-secondary btn-lg ms-2">
+                      Cancelar
+                    </Link>
+                  </Form>
                 </CardBody>
               </Card>
             </Col>
           </Row>
-          <Row>
-            <Col lg={12}>
-              <div className="text-lg-end mt-3">
-                <Link
-                  to="/agregarrutas"
-                  className="btn btn-primary custom-button"
-                >
-                  <i className="fas fa-plus"></i> Agregar Ruta
-                </Link>
-              </div>
-            </Col>
-          </Row>
         </Container>
       </div>
-
-      {/* Modal para editar ruta */}
-      <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
-        <ModalHeader toggle={toggleModalEditar}>Editar Ruta</ModalHeader>
-        <ModalBody>
-          <Form>
-            <FormGroup>
-              <Label for="id_destino">Destino</Label>
-              <Input
-                type="text"
-                name="id_destino"
-                id="id_destino"
-                value={rutaEditada.id_destino || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="nombre">Nombre</Label>
-              <Input
-                type="text"
-                name="nombre"
-                id="nombre"
-                value={rutaEditada.nombre || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="id_bodega">Bodega</Label>
-              <Input
-                type="text"
-                name="id_bodega"
-                id="id_bodega"
-                value={rutaEditada.id_bodega || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="id_estado">Estado</Label>
-              <Input
-                type="text"
-                name="id_estado"
-                id="id_estado"
-                value={rutaEditada.id_estado || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="distancia_km">Distancia (km)</Label>
-              <Input
-                type="text"
-                name="distancia_km"
-                id="distancia_km"
-                value={rutaEditada.distancia_km || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="duracion_aproximada">Duración Aprox. (hrs)</Label>
-              <Input
-                type="text"
-                name="duracion_aproximada"
-                id="duracion_aproximada"
-                value={rutaEditada.duracion_aproximada || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="fecha_programada">Fecha Programada</Label>
-              <Input
-                type="date"
-                name="fecha_programada"
-                id="fecha_programada"
-                value={rutaEditada.fecha_programada || ""}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-          </Form>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={guardarCambios}>
-            Guardar Cambios
-          </Button>{" "}
-          <Button color="secondary" onClick={() => setModalEditar(false)}>
-            Cancelar
-          </Button>
-        </ModalFooter>
-      </Modal>
     </React.Fragment>
   );
 };

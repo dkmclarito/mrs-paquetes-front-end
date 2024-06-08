@@ -61,7 +61,7 @@ const SidebarData = [
         label: "Ordenes",
         icon: "mdi mdi-reorder-horizontal",
         subItem: [
-            { sublabel: "Gestión de ordenes", link: "/AgregarOrden" },
+            { sublabel: "Gestión de ordenes", link: "/ListadoOrden" },
             { sublabel: "Tipo de pago", link: "/tables-listjs" },
             { sublabel: "Tipo de envío", link: "/table-datatables" },
         ],
