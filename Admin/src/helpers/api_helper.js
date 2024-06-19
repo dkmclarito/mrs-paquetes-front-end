@@ -1,8 +1,7 @@
 import axios from "axios";
-import config from "../config";
 
 // default
-axios.defaults.baseURL = config.API_URL;
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 // content type
 axios.defaults.headers.post["Content-Type"] = "application/json";
@@ -52,8 +51,10 @@ class APIClient {
    * post given data to url
    */
   create = (url, data) => {
+    console.log("URL completa:", `${axios.defaults.baseURL}${url}`);
     return axios.post(url, data);
   };
+  
 
   /**
    * Updates data

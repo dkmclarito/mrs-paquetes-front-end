@@ -38,3 +38,4 @@ Logout.propTypes = {
 };
 
 export default withRouter(Logout);
+

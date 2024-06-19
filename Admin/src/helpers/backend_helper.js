@@ -15,29 +15,31 @@ const isUserAuthenticated = () => {
 };
 
 // Register Method
-const postRegister = (data) => {
-  return api.create(url.POST_REGISTER, data)
-    .catch(err => {
-      let message;
-      if (err.response && err.response.status) {
-        switch (err.response.status) {
-          case 404:
-            message = "Sorry! the page you are looking for could not be found";
-            break;
-          case 500:
-            message = "Sorry! something went wrong, please contact our support team";
-            break;
-          case 401:
-            message = "Invalid credentials";
-            break;
-          default:
-            message = err[1];
-            break;
-        }
+const postRegister = async (data) => {
+  try {
+    return await api.create(url.POST_REGISTER, data);
+  } catch (err) {
+    let message;
+    if (err.response && err.response.status) {
+      switch (err.response.status) {
+        case 404:
+          message = "Sorry! the page you are looking for could not be found";
+          break;
+        case 500:
+          message = "Sorry! something went wrong, please contact our support team";
+          break;
+        case 401:
+          message = "Invalid credentials";
+          break;
+        default:
+          message = err[1];
+          break;
       }
-      throw message;
-    });
+    }
+    throw message;
+  }
 };
+
 
 // Login Method
 const postLogin = data => api.create(url.POST_LOGIN, data);
@@ -51,28 +53,29 @@ const postJwtProfile = data => api.create(url.POST_EDIT_JWT_PROFILE, data);
 const postProfile = data => api.create(url.POST_EDIT_PROFILE, data);
 
 // Register Method
-const postJwtRegister = (url,data) => {
-    return api.create(url, data)
-    .catch(err => {
-      var message;
-      if (err.response && err.response.status) {
-        switch (err.response.status) {
-          case 404:
-            message = "Sorry! the page you are looking for could not be found";
-            break;
-          case 500:
-            message = "Sorry! something went wrong, please contact our support team";
-            break;
-          case 401:
-            message = "Invalid credentials";
-            break;
-          default:
-            message = err[1];
-            break;
-        }
+const postJwtRegister = async (url,data) => {
+    try {
+    return await api.create(url, data);
+  } catch (err) {
+    var message;
+    if (err.response && err.response.status) {
+      switch (err.response.status) {
+        case 404:
+          message = "Sorry! the page you are looking for could not be found";
+          break;
+        case 500:
+          message = "Sorry! something went wrong, please contact our support team";
+          break;
+        case 401:
+          message = "Invalid credentials";
+          break;
+        default:
+          message = err[1];
+          break;
       }
-      throw message;
-    });
+    }
+    throw message;
+  }
 };
 
 // Login Method

@@ -8,7 +8,6 @@ import {
   Col,
   CardBody,
   Card,
-  Alert,
   Container,
   Form,
   Input,
@@ -17,7 +16,8 @@ import {
 } from "reactstrap";
 
 //redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../store/actions";
 
 import { Link } from "react-router-dom";
 import withRouter from "../../components/Common/withRouter";
@@ -26,87 +26,26 @@ import withRouter from "../../components/Common/withRouter";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-//Social Media Imports
-import { GoogleLogin } from "react-google-login";
-// import TwitterLogin from "react-twitter-auth"
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-
-// actions
-import { loginUser, socialLogin } from "../../store/actions";
-
-//Import config
-import { facebook, google } from "../../config";
-
-import { createSelector } from "reselect";
-
 const Login = (props) => {
+ 
   document.title = "Login | Mr. Paquetes";
 
   const dispatch = useDispatch();
 
   const validation = useFormik({
-    // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
-
     initialValues: {
-      email: "admin@Themesdesign.com" || "",
-      password: "123456" || "",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required("Please Enter Your Email"),
-      password: Yup.string().required("Please Enter Your Password"),
+      email: Yup.string().required("Ingresa tu Email"),
+      password: Yup.string().required("Ingresa tu Password"),
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.router.navigate));
     },
   });
-
-  const loginpage = createSelector(
-    (state) => state.login,
-    (state) => ({
-      error: state.error,
-    })
-  );
-  // Inside your component
-  const { error } = useSelector(loginpage);
-
-  // handleValidSubmit
-  // const handleValidSubmit = (event, values) => {
-  //   dispatch(loginUser(values, props.router.navigate));
-  // };
-
-  const signIn = (res, type) => {
-    if (type === "google" && res) {
-      const postData = {
-        name: res.profileObj.name,
-        email: res.profileObj.email,
-        token: res.tokenObj.access_token,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.router.navigate, type));
-    } else if (type === "facebook" && res) {
-      const postData = {
-        name: res.name,
-        email: res.email,
-        token: res.accessToken,
-        idToken: res.tokenId,
-      };
-      dispatch(socialLogin(postData, props.router.navigate, type));
-    }
-  };
-
-  //handleGoogleLoginResponse
-  const googleResponse = (response) => {
-    signIn(response, "google");
-  };
-
-  //handleTwitterLoginResponse
-  // const twitterResponse = e => {}
-
-  //handleFacebookLoginResponse
-  const facebookResponse = (response) => {
-    signIn(response, "facebook");
-  };
 
   useEffect(() => {
     document.body.className = "context area circles";
@@ -170,11 +109,6 @@ const Login = (props) => {
                             return false;
                           }}
                         >
-                          {error ? (
-                            <Alert color="danger">
-                              <div>{error}</div>
-                            </Alert>
-                          ) : null}
                           <Row>
                             <Col md={12}>
                               <div className="mb-4">
@@ -284,6 +218,7 @@ const Login = (props) => {
           </div>
         </ul>
       </div>
+
     </React.Fragment>
   );
 };

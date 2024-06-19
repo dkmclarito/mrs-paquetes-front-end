@@ -1,8 +1,8 @@
 //REGISTER
-export const POST_REGISTER = "/post-register";
+export const POST_REGISTER = "/register";
 
 //LOGIN
-export const POST_LOGIN = "/post-login";
+export const POST_LOGIN = "/login";
 export const POST_JWT_LOGIN = "/post-jwt-login";
 export const POST_PASSWORD_FORGET = "/forget-pwd";
 export const POST_JWT_PASSWORD_FORGET = "/jwt-forget-pwd";

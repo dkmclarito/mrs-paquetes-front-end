@@ -38,7 +38,7 @@ const Register = () => {
                                                     </div>
                                                     <div className="mb-4">
                                                         <label className="form-label" htmlFor="useremail">Email</label>
-                                                        <input type="email" className="form-control" id="useremail" placeholder="Enter email" />
+                                                        <input type="email" className="form-control" id="C" placeholder="Enter email" />
                                                     </div>
                                                     <div className="mb-4">
                                                         <label className="form-label" htmlFor="userpassword">Password</label>

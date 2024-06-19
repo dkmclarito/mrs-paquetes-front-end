@@ -4,11 +4,8 @@ import Routes from "./Routes/index";
 // Import Scss
 import './assets/scss/theme.scss';
 
-// Fake Backend 
-import Backend from "./helpers/AuthType/Backend";
-
-// Activating fake backend
-Backend();
+// Elimina la importación y la activación del backend falso
+// import Backend from "./helpers/AuthType/Backend";
 
 // Firebase
 // Import Firebase Configuration file
@@ -27,7 +24,6 @@ Backend();
 
 // init firebase backend
 // initFirebaseBackend(firebaseConfig)
-
 
 function App() {
   return (
