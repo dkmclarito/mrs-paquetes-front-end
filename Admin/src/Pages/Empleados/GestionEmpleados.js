@@ -1,39 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, Col, Row, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 
 const GestionEmpleados = () => {
-  document.title = "Empleados | Nombre de tu Aplicación";
+  document.title = "Empleados | Mr. Paquetes";
 
-  const [empleados, setEmpleados] = useState([
-    {
-      id: 1,
-      nombre: "Luis Gómez",
-      email: "luis@example.com",
-      departamento: "Recursos Humanos",
-      telefono: "555-987-6543",
-      fechaRegistro: "2024-05-24",
-    },
-    {
-      id: 2,
-      nombre: "Marta López",
-      email: "marta@example.com",
-      departamento: "Finanzas",
-      telefono: "123-456-7890",
-      fechaRegistro: "2024-05-23",
-    },
-    // Puedes agregar más empleados aquí
-  ]);
-
+  const [empleados, setEmpleados] = useState([]);
   const [modalEditar, setModalEditar] = useState(false);
   const [empleadoEditado, setEmpleadoEditado] = useState(null);
+  const [token, setToken] = useState("");
+  const [confirmarEliminar, setConfirmarEliminar] = useState(false);
+  const [empleadoAEliminar, setEmpleadoAEliminar] = useState(null);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const accessToken = await import("../../helpers/jwt-token-access/accessToken");
+        setToken(accessToken.default);
+      } catch (error) {
+        console.error("Error al obtener el token:", error);
+      }
+    };
+
+    fetchToken();
+  }, []);
+
+  // Función para obtener la lista de empleados desde la API
+  useEffect(() => {
+    const fetchEmpleados = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/empleados", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const responseData = await response.json();
+        if (responseData.hasOwnProperty('empleados') && Array.isArray(responseData.empleados)) {
+          setEmpleados(responseData.empleados);
+        } else {
+          console.error("Respuesta no válida para empleados:", responseData);
+        }
+      } catch (error) {
+        console.error("Error al obtener los empleados:", error);
+      }
+    };
+
+    if (token) {
+      fetchEmpleados();
+    }
+  }, [token]);
 
   // Función para eliminar un empleado
-  const eliminarEmpleado = (idEmpleado) => {
-    // Actualizar el estado filtrando el empleado a eliminar
-    const nuevosEmpleados = empleados.filter(empleado => empleado.id !== idEmpleado);
-    setEmpleados(nuevosEmpleados);
+  const eliminarEmpleado = async (idEmpleado) => {
+    try {
+     
+      setConfirmarEliminar(true);
+      setEmpleadoAEliminar(idEmpleado);
+    } catch (error) {
+      console.error("Error al eliminar empleado:", error);
+    }
+  };
+
+  // Función para confirmar la eliminación de un empleado
+  const confirmarEliminarEmpleado = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/empleados/${empleadoAEliminar}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        // Actualiza localmente la lista de empleados después de la eliminación
+        const nuevosEmpleados = empleados.filter(empleado => empleado.id !== empleadoAEliminar);
+        setEmpleados(nuevosEmpleados);
+      } else {
+        console.error("Error al eliminar empleado:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error al eliminar empleado:", error);
+    } finally {
+     
+      setConfirmarEliminar(false);
+      setEmpleadoAEliminar(null);
+    }
   };
 
   // Función para abrir el modal de edición
@@ -43,9 +94,33 @@ const GestionEmpleados = () => {
   };
 
   // Función para guardar los cambios después de editar
-  const guardarCambiosEmpleado = () => {
-    // Aquí deberías implementar la lógica para guardar los cambios del empleado
-    setModalEditar(false); // Cerrar el modal después de guardar cambios
+  const guardarCambiosEmpleado = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/empleados/${empleadoEditado.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(empleadoEditado)
+      });
+      if (response.ok) {
+        // Actualizar localmente el empleado editado en la lista
+        const nuevosEmpleados = empleados.map(empleado => {
+          if (empleado.id === empleadoEditado.id) {
+            return empleadoEditado;
+          }
+          return empleado;
+        });
+        setEmpleados(nuevosEmpleados);
+        setModalEditar(false); 
+        setEmpleadoEditado(null); 
+      } else {
+        console.error("Error al actualizar empleado:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error al actualizar empleado:", error);
+    }
   };
 
   return (
@@ -55,6 +130,15 @@ const GestionEmpleados = () => {
           <Breadcrumbs title="Empleados" breadcrumbItem="Listado" />
           <Row>
             <Col lg={12}>
+              <div className="text-lg-end mt-3">
+                <Link to="/AgregarEmpleados" className="btn btn-primary custom-button">
+                  <i className="fas fa-plus"></i> Agregar Empleado
+                </Link>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col lg={12}>
               <Card>
                 <CardBody>
                   <div className="table-responsive">
@@ -62,11 +146,12 @@ const GestionEmpleados = () => {
                       <thead className="thead-light">
                         <tr>
                           <th>ID</th>
-                          <th>Nombre</th>
+                          <th>Nombres</th>
+                          <th>Apellidos</th>
                           <th>Email</th>
-                          <th>Departamento</th>
+                          <th>Cargo</th>
                           <th>Teléfono</th>
-                          <th>Fecha de Registro</th>
+                          <th>Fecha de Contratación</th>
                           <th>Acciones</th>
                         </tr>
                       </thead>
@@ -74,11 +159,12 @@ const GestionEmpleados = () => {
                         {empleados.map(empleado => (
                           <tr key={empleado.id}>
                             <td>{empleado.id}</td>
-                            <td>{empleado.nombre}</td>
+                            <td>{empleado.nombres}</td>
+                            <td>{empleado.apellidos}</td>
                             <td>{empleado.email}</td>
-                            <td>{empleado.departamento}</td>
+                            <td>{empleado.id_cargo}</td>
                             <td>{empleado.telefono}</td>
-                            <td>{empleado.fechaRegistro}</td>
+                            <td>{empleado.fecha_contratacion}</td>
                             <td>
                               <Button
                                 className="me-2 btn-icon btn-danger"
@@ -102,15 +188,6 @@ const GestionEmpleados = () => {
               </Card>
             </Col>
           </Row>
-          <Row>
-            <Col lg={12}>
-              <div className="text-lg-end mt-3">
-                <Link to="/AgregarEmpleados" className="btn btn-primary custom-button">
-                  <i className="fas fa-plus"></i> Agregar Empleado
-                </Link>
-              </div>
-            </Col>
-          </Row>
         </Container>
       </div>
 
@@ -119,25 +196,45 @@ const GestionEmpleados = () => {
         <ModalHeader toggle={toggleModalEditar}>Editar Empleado</ModalHeader>
         <ModalBody>
           <FormGroup>
-            <Label for="nombre">Nombre</Label>
-            <Input type="text" id="nombre" value={empleadoEditado ? empleadoEditado.nombre : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, nombre: e.target.value})} />
+            <Label for="nombre">Nombres</Label>
+            <Input type="text" id="nombre" value={empleadoEditado ? empleadoEditado.nombres : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, nombres: e.target.value})} />
+          </FormGroup>
+          <FormGroup>
+            <Label for="apellidos">Apellidos</Label>
+            <Input type="text" id="apellidos" value={empleadoEditado ? empleadoEditado.apellidos : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, apellidos: e.target.value})} />
           </FormGroup>
           <FormGroup>
             <Label for="email">Email</Label>
             <Input type="email" id="email" value={empleadoEditado ? empleadoEditado.email : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, email: e.target.value})} />
           </FormGroup>
           <FormGroup>
-            <Label for="departamento">Departamento</Label>
-            <Input type="text" id="departamento" value={empleadoEditado ? empleadoEditado.departamento : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, departamento: e.target.value})} />
+            <Label for="cargo">Cargo</Label>
+            <Input type="text" id="cargo" value={empleadoEditado ? empleadoEditado.id_cargo : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, id_cargo: e.target.value})} />
           </FormGroup>
           <FormGroup>
             <Label for="telefono">Teléfono</Label>
             <Input type="text" id="telefono" value={empleadoEditado ? empleadoEditado.telefono : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, telefono: e.target.value})} />
           </FormGroup>
+          <FormGroup>
+            <Label for="fecha_contratacion">Fecha de Contratación</Label>
+            <Input type="date" id="fecha_contratacion" value={empleadoEditado ? empleadoEditado.fecha_contratacion : ""} onChange={(e) => setEmpleadoEditado({...empleadoEditado, fecha_contratacion: e.target.value})} />
+          </FormGroup>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={guardarCambiosEmpleado}>Guardar Cambios</Button>{' '}
-          <Button color="secondary" onClick={toggleModalEditar}>Cancelar</Button>
+          <Button color="secondary" onClick={() => setModalEditar(false)}>Cancelar</Button>
+        </ModalFooter>
+      </Modal>
+
+      {/* Modal de confirmación antes de eliminar */}
+      <Modal isOpen={confirmarEliminar} toggle={() => setConfirmarEliminar(!confirmarEliminar)}>
+        <ModalHeader toggle={() => setConfirmarEliminar(!confirmarEliminar)}>Confirmar Eliminación</ModalHeader>
+        <ModalBody>
+          ¿Estás seguro que deseas eliminar este empleado?
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={confirmarEliminarEmpleado}>Eliminar</Button>{' '}
+          <Button color="secondary" onClick={() => setConfirmarEliminar(false)}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </React.Fragment>
