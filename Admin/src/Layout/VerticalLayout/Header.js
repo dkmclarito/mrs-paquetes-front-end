@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 //i18n
 import { withTranslation } from "react-i18next";
 
-//import images
 import logoSm from "../../assets/images/logo-sm.png";
 import logoDark from "../../assets/images/logo-dark.png";
 import logoLight from "../../assets/images/logo-light.png";
