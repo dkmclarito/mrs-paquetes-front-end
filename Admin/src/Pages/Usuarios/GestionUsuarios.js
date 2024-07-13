@@ -133,7 +133,7 @@ const GestionUsuarios = () => {
             <Col lg={12}>
               <div className="text-lg-end mt-3">
                 <Link
-                  to="/agregar-usuarios"
+                  to="/AgregarUsuarios"
                   className="btn btn-primary custom-button"
                 >
                   <i className="fas fa-plus"></i> Agregar Usuario
