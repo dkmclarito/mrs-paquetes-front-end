@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardBody, Col, Row, Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input } from "reactstrap";
+import { 
+  Card, CardBody, Col, Row, Container, Button, Modal, 
+  ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input 
+} from "reactstrap";
 import { Link } from "react-router-dom";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
+
+const fetchToken = async () => {
+  try {
+    const accessToken = await import("../../helpers/jwt-token-access/accessToken");
+    return accessToken.default;
+  } catch (error) {
+    console.error("Error al obtener el token:", error);
+    throw error;
+  }
+};
 
 const GestionClientes = () => {
   document.title = "Clientes | Mr. Paquetes";
@@ -14,21 +27,22 @@ const GestionClientes = () => {
   const [clienteAEliminar, setClienteAEliminar] = useState(null);
 
   useEffect(() => {
-    const fetchToken = async () => {
+    const initializeToken = async () => {
       try {
-        const accessToken = await import("../../helpers/jwt-token-access/accessToken");
-        setToken(accessToken.default);
+        const token = await fetchToken();
+        setToken(token);
       } catch (error) {
-        console.error("Error al obtener el token:", error);
+        console.error("Error al inicializar el token:", error);
       }
     };
 
-    fetchToken();
+    initializeToken();
   }, []);
 
-  // Función para obtener la lista de clientes desde la API
   useEffect(() => {
     const fetchClientes = async () => {
+      if (!token) return;
+
       try {
         const response = await fetch("http://127.0.0.1:8000/api/clientes", {
           headers: {
@@ -36,8 +50,9 @@ const GestionClientes = () => {
           }
         });
         const responseData = await response.json();
-        if (responseData.hasOwnProperty('clientes') && Array.isArray(responseData.clientes)) {
-          setClientes(responseData.clientes);
+
+        if (Array.isArray(responseData)) {
+          setClientes(responseData);
         } else {
           console.error("Respuesta no válida para clientes:", responseData);
         }
@@ -46,23 +61,17 @@ const GestionClientes = () => {
       }
     };
 
-    if (token) {
-      fetchClientes();
-    }
+    fetchClientes();
   }, [token]);
 
-  // Función para eliminar un cliente
-  const eliminarCliente = async (idCliente) => {
-    try {
-      setConfirmarEliminar(true);
-      setClienteAEliminar(idCliente);
-    } catch (error) {
-      console.error("Error al eliminar cliente:", error);
-    }
+  const eliminarCliente = (idCliente) => {
+    setConfirmarEliminar(true);
+    setClienteAEliminar(idCliente);
   };
 
-  // Función para confirmar la eliminación de un cliente
   const confirmarEliminarCliente = async () => {
+    if (!clienteAEliminar) return;
+
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/clientes/${clienteAEliminar}`, {
         method: "DELETE",
@@ -70,8 +79,8 @@ const GestionClientes = () => {
           Authorization: `Bearer ${token}`
         }
       });
+
       if (response.ok) {
-        // Actualiza localmente la lista de clientes después de la eliminación
         const nuevosClientes = clientes.filter(cliente => cliente.id !== clienteAEliminar);
         setClientes(nuevosClientes);
       } else {
@@ -85,14 +94,19 @@ const GestionClientes = () => {
     }
   };
 
-  // Función para abrir el modal de edición
-  const toggleModalEditar = (cliente) => {
+  const toggleModalEditar = (cliente = null) => {
     setClienteEditado(cliente);
     setModalEditar(!modalEditar);
   };
 
-  // Función para guardar los cambios después de editar
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setClienteEditado({ ...clienteEditado, [id]: value });
+  };
+
   const guardarCambiosCliente = async () => {
+    if (!clienteEditado) return;
+
     try {
       const response = await fetch(`http://127.0.0.1:8000/api/clientes/${clienteEditado.id}`, {
         method: "PUT",
@@ -102,23 +116,28 @@ const GestionClientes = () => {
         },
         body: JSON.stringify(clienteEditado)
       });
+
       if (response.ok) {
-        // Actualizar localmente el cliente editado en la lista
-        const nuevosClientes = clientes.map(cliente => {
-          if (cliente.id === clienteEditado.id) {
-            return clienteEditado;
-          }
-          return cliente;
-        });
+        const nuevosClientes = clientes.map(cliente => 
+          cliente.id === clienteEditado.id ? clienteEditado : cliente
+        );
         setClientes(nuevosClientes);
-        setModalEditar(false); 
-        setClienteEditado(null); 
+        setModalEditar(false);
+        setClienteEditado(null);
       } else {
         console.error("Error al actualizar cliente:", response.statusText);
       }
     } catch (error) {
       console.error("Error al actualizar cliente:", error);
     }
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -144,9 +163,8 @@ const GestionClientes = () => {
                       <thead className="thead-light">
                         <tr>
                           <th>ID</th>
-                          <th>Nombre</th>
-                          <th>Apellido</th>
-                          <th>Nombre Comercial</th>
+                          <th>Nombres</th>
+                          <th>Apellidos</th>
                           <th>Email</th>
                           <th>Teléfono</th>
                           <th>Fecha de Registro</th>
@@ -159,10 +177,9 @@ const GestionClientes = () => {
                             <td>{cliente.id}</td>
                             <td>{cliente.nombre}</td>
                             <td>{cliente.apellido}</td>
-                            <td>{cliente.nombre_comercial}</td>
                             <td>{cliente.email}</td>
                             <td>{cliente.telefono}</td>
-                            <td>{cliente.fecha_registro}</td>
+                            <td>{formatDate(cliente.fecha_registro)}</td>
                             <td>
                               <Button
                                 className="me-2 btn-icon btn-danger"
@@ -189,45 +206,68 @@ const GestionClientes = () => {
         </Container>
       </div>
 
-      {/* Modal para editar cliente */}
-      <Modal isOpen={modalEditar} toggle={toggleModalEditar}>
-        <ModalHeader toggle={toggleModalEditar}>Editar Cliente</ModalHeader>
+      <Modal isOpen={modalEditar} toggle={() => toggleModalEditar()}>
+        <ModalHeader toggle={() => toggleModalEditar()}>Editar Cliente</ModalHeader>
         <ModalBody>
           <FormGroup>
             <Label for="nombre">Nombre</Label>
-            <Input type="text" id="nombre" value={clienteEditado ? clienteEditado.nombre : ""} onChange={(e) => setClienteEditado({...clienteEditado, nombre: e.target.value})} />
+            <Input 
+              type="text" 
+              id="nombre" 
+              value={clienteEditado ? clienteEditado.nombre : ""} 
+              onChange={handleChange} 
+            />
           </FormGroup>
           <FormGroup>
             <Label for="apellido">Apellido</Label>
-            <Input type="text" id="apellido" value={clienteEditado ? clienteEditado.apellido : ""} onChange={(e) => setClienteEditado({...clienteEditado, apellido: e.target.value})} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="nombre_comercial">Nombre Comercial</Label>
-            <Input type="text" id="nombre_comercial" value={clienteEditado ? clienteEditado.nombre_comercial : ""} onChange={(e) => setClienteEditado({...clienteEditado, nombre_comercial: e.target.value})} />
+            <Input 
+              type="text" 
+              id="apellido" 
+              value={clienteEditado ? clienteEditado.apellido : ""} 
+              onChange={handleChange} 
+            />
           </FormGroup>
           <FormGroup>
             <Label for="email">Email</Label>
-            <Input type="email" id="email" value={clienteEditado ? clienteEditado.email : ""} onChange={(e) => setClienteEditado({...clienteEditado, email: e.target.value})} />
+            <Input 
+              type="email" 
+              id="email" 
+              value={clienteEditado ? clienteEditado.email : ""} 
+              onChange={handleChange} 
+            />
           </FormGroup>
           <FormGroup>
             <Label for="telefono">Teléfono</Label>
-            <Input type="text" id="telefono" value={clienteEditado ? clienteEditado.telefono : ""} onChange={(e) => setClienteEditado({...clienteEditado, telefono: e.target.value})} />
+            <Input 
+              type="text" 
+              id="telefono" 
+              value={clienteEditado ? clienteEditado.telefono : ""} 
+              onChange={handleChange} 
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="fecha_registro">Fecha de Registro</Label>
+            <Input 
+              type="date" 
+              id="fecha_registro" 
+              value={clienteEditado ? formatDate(clienteEditado.fecha_registro) : ""} 
+              onChange={(e) => setClienteEditado({...clienteEditado, fecha_registro: e.target.value})} 
+            />
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={guardarCambiosCliente}>Guardar Cambios</Button>{' '}
+          <Button color="primary" onClick={guardarCambiosCliente}>Guardar Cambios</Button>
           <Button color="secondary" onClick={() => setModalEditar(false)}>Cancelar</Button>
         </ModalFooter>
       </Modal>
 
-      {/* Modal de confirmación antes de eliminar */}
       <Modal isOpen={confirmarEliminar} toggle={() => setConfirmarEliminar(!confirmarEliminar)}>
         <ModalHeader toggle={() => setConfirmarEliminar(!confirmarEliminar)}>Confirmar Eliminación</ModalHeader>
         <ModalBody>
           ¿Estás seguro que deseas eliminar este cliente?
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={confirmarEliminarCliente}>Eliminar</Button>{' '}
+          <Button color="danger" onClick={confirmarEliminarCliente}>Eliminar</Button>
           <Button color="secondary" onClick={() => setConfirmarEliminar(false)}>Cancelar</Button>
         </ModalFooter>
       </Modal>

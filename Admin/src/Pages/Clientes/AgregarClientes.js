@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 
 const AgregarClientes = () => {
   const [tiposPersonas, setTiposPersonas] = useState([]);
+  const [fechaRegistro, setFechaRegistro] = useState(new Date().toISOString());
   const [generos, setGeneros] = useState([]);
   const [departamentos, setDepartamentos] = useState([]);
   const [municipiosPorDepartamento, setMunicipiosPorDepartamento] = useState({});
   const [nombres, setNombres] = useState("");
-  const [fechaRegistro, setFechaRegistro] = useState(new Date().toISOString());
   const [apellidos, setApellidos] = useState("");
   const [tipoPersona, setTipoPersona] = useState("");
   const [genero, setGenero] = useState("");
@@ -155,11 +155,12 @@ const AgregarClientes = () => {
       id_municipio: municipio,
       es_contribuyente: esContribuyente ? 1 : 0,
       nombre_comercial: nombreComercial,
+      nombre_empresa: nombreEmpresa,
       nit,
       nrc,
       giro,
-      fecha_registro: new Date().toISOString(), // Asegúrate de enviar una fecha válida
-      id_estado: 1 // Reemplaza con el ID correcto del estado activo de clientes
+      fecha_registro: fechaRegistro.replace(/-/g, "/"),
+      id_estado: 1
     };
 
     fetch("http://127.0.0.1:8000/api/clientes", {
@@ -185,6 +186,7 @@ const AgregarClientes = () => {
         setGenero("");
         setDui("");
         setTelefono("");
+        setFechaRegistro("");
         setCorreo("");
         setDireccion("");
         setDepartamento("");
@@ -270,9 +272,11 @@ const AgregarClientes = () => {
                         <FormGroup className="form-group-custom">
                           <Label for="tipoPersona">Tipo de Persona</Label>
                           <Input type="select" id="tipoPersona" value={tipoPersona} onChange={handleTipoPersonaChange} required className="form-control-lg custom-input">
-                            <option value="">Seleccione...</option>
+                            <option value="">Seleccionar tipo de persona</option>
                             {tiposPersonas.map((tipo) => (
-                              <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                              <option key={tipo.id} value={tipo.id}>
+                                {tipo.nombre}
+                              </option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -281,9 +285,11 @@ const AgregarClientes = () => {
                         <FormGroup className="form-group-custom">
                           <Label for="genero">Género</Label>
                           <Input type="select" id="genero" value={genero} onChange={(e) => setGenero(e.target.value)} required className="form-control-lg custom-input">
-                            <option value="">Seleccione...</option>
+                            <option value="">Seleccionar género</option>
                             {generos.map((gen) => (
-                              <option key={gen.id} value={gen.id}>{gen.nombre}</option>
+                              <option key={gen.id} value={gen.id}>
+                                {gen.nombre}
+                              </option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -297,18 +303,17 @@ const AgregarClientes = () => {
                         </FormGroup>
                       </Col>
                     </Row>
-
                     <Row form>
                       <Col md={6}>
                         <FormGroup className="form-group-custom">
                           <Label for="dui">DUI</Label>
-                          <Input type="text" id="dui" placeholder="Ingrese el DUI" value={dui} onChange={(e) => setDui(e.target.value)} className="form-control-lg custom-input" />
+                          <Input type="text" id="dui" placeholder="Ingrese el DUI" value={dui} onChange={(e) => setDui(e.target.value)} required className="form-control-lg custom-input" />
                         </FormGroup>
                       </Col>
                       <Col md={6}>
                         <FormGroup className="form-group-custom">
                           <Label for="telefono">Teléfono</Label>
-                          <Input type="text" id="telefono" placeholder="Ingrese el teléfono" value={telefono} onChange={(e) => setTelefono(e.target.value)} className="form-control-lg custom-input" />
+                          <Input type="text" id="telefono" placeholder="Ingrese el teléfono" value={telefono} onChange={(e) => setTelefono(e.target.value)} required className="form-control-lg custom-input" />
                         </FormGroup>
                       </Col>
                     </Row>
@@ -331,9 +336,10 @@ const AgregarClientes = () => {
                         <FormGroup className="form-group-custom">
                           <Label for="departamento">Departamento</Label>
                           <Input type="select" id="departamento" value={departamento} onChange={handleDepartamentoChange} required className="form-control-lg custom-input">
-                            <option value="">Seleccione...</option>
+                            <option value="">Seleccionar departamento</option>
                             {departamentos.map((depto) => (
-                              <option key={depto.id} value={depto.id}>{depto.nombre}</option>
+                              <option key={depto.id} value={depto.id}>{depto.nombre}
+                              </option>
                             ))}
                           </Input>
                         </FormGroup>
@@ -342,69 +348,73 @@ const AgregarClientes = () => {
                         <FormGroup className="form-group-custom">
                           <Label for="municipio">Municipio</Label>
                           <Input type="select" id="municipio" value={municipio} onChange={(e) => setMunicipio(e.target.value)} required className="form-control-lg custom-input">
-                            <option value="">Seleccione...</option>
-                            {municipiosPorDepartamento[departamento] && municipiosPorDepartamento[departamento].map((muni) => (
-                              <option key={muni.id} value={muni.id}>{muni.nombre}</option>
-                            ))}
+                            <option value="">Seleccionar municipio</option>
+                            {municipiosPorDepartamento[departamento] &&
+                              municipiosPorDepartamento[departamento].map((muni) => (
+                                <option key={muni.id} value={muni.id}>
+                                  {muni.nombre}
+                                </option>
+                              ))}
                           </Input>
                         </FormGroup>
                       </Col>
                     </Row>
                     <Row form>
                       <Col md={6}>
-                        <FormGroup className="form-group-custom">
-                          <Label for="esContribuyente">¿Es Contribuyente?</Label>
-                          <Input type="select" id="esContribuyente" value={esContribuyente} onChange={(e) => setEsContribuyente(e.target.value === "true")} required className="form-control-lg custom-input">
-                            <option value="false">No</option>
-                            <option value="true">Sí</option>
-                          </Input>
+                        <FormGroup check className="form-group-custom">
+                          <Label check>
+                            <Input type="checkbox" id="esContribuyente" checked={esContribuyente} onChange={(e) => setEsContribuyente(e.target.checked)} /> Es Contribuyente
+                          </Label>
                         </FormGroup>
                       </Col>
-                      {tipoPersona === "2" && (
-                        <Col md={6}>
-                          <FormGroup className="form-group-custom">
-                            <Label for="nombreComercial">Nombre Comercial</Label>
-                            <Input type="text" id="nombreComercial" placeholder="Ingrese el nombre comercial" value={nombreComercial} onChange={(e) => setNombreComercial(e.target.value)} className="form-control-lg custom-input" />
-                          </FormGroup>
-                        </Col>
-                      )}
                     </Row>
                     {tipoPersona === "2" && (
-                      <Row form>
-                        <Col md={6}>
-                          <FormGroup className="form-group-custom">
-                            <Label for="nit">NIT</Label>
-                            <Input type="text" id="nit" placeholder="Ingrese el NIT" value={nit} onChange={(e) => setNit(e.target.value)} className="form-control-lg custom-input" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={6}>
-                          <FormGroup className="form-group-custom">
-                            <Label for="nrc">NRC</Label>
-                            <Input type="text" id="nrc" placeholder="Ingrese el NRC" value={nrc} onChange={(e) => setNrc(e.target.value)} className="form-control-lg custom-input" />
-                          </FormGroup>
-                        </Col>
-                      </Row>
+                      <>
+                        <h5 className="header-title mb-3">Información Adicional para Empresas</h5>
+                        <Row form>
+                          <Col md={6}>
+                            <FormGroup className="form-group-custom">
+                              <Label for="nombreComercial">Nombre Comercial</Label>
+                              <Input type="text" id="nombreComercial" placeholder="Ingrese el nombre comercial" value={nombreComercial} onChange={(e) => setNombreComercial(e.target.value)} required className="form-control-lg custom-input" />
+                            </FormGroup>
+                          </Col>
+                          <Col md={6}>
+                            <FormGroup className="form-group-custom">
+                              <Label for="nit">NIT</Label>
+                              <Input type="text" id="nit" placeholder="Ingrese el NIT" value={nit} onChange={(e) => setNit(e.target.value)} required className="form-control-lg custom-input" />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row form>
+                          <Col md={6}>
+                            <FormGroup className="form-group-custom">
+                              <Label for="nrc">NRC</Label>
+                              <Input type="text" id="nrc" placeholder="Ingrese el NRC" value={nrc} onChange={(e) => setNrc(e.target.value)} required className="form-control-lg custom-input" />
+                            </FormGroup>
+                          </Col>
+                          <Col md={6}>
+                            <FormGroup className="form-group-custom">
+                              <Label for="giro">Giro</Label>
+                              <Input type="text" id="giro" placeholder="Ingrese el giro de la empresa" value={giro} onChange={(e) => setGiro(e.target.value)} required className="form-control-lg custom-input" />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row form>
+                          <Col md={6}>
+                            <FormGroup className="form-group-custom">
+                              <Label for="nombreEmpresa">Nombre de la Empresa</Label>
+                              <Input type="text" id="nombreEmpresa" placeholder="Ingrese el nombre de la empresa" value={nombreEmpresa} onChange={(e) => setNombreEmpresa(e.target.value)} required className="form-control-lg custom-input" />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </>
                     )}
-                    {tipoPersona === "2" && (
-                      <Row form>
-                        <Col md={6}>
-                          <FormGroup className="form-group-custom">
-                            <Label for="giro">Giro</Label>
-                            <Input type="text" id="giro" placeholder="Ingrese el giro" value={giro} onChange={(e) => setGiro(e.target.value)} className="form-control-lg custom-input" />
-                          </FormGroup>
-                        </Col>
-                        <Col md={6}>
-                          <FormGroup className="form-group-custom">
-                            <Label for="nombreEmpresa">Nombre de la Empresa</Label>
-                            <Input type="text" id="nombreEmpresa" placeholder="Ingrese el nombre de la empresa" value={nombreEmpresa} onChange={(e) => setNombreEmpresa(e.target.value)} className="form-control-lg custom-input" />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    )}
-                    <div className="text-center mt-4">
-                      <Button type="submit" color="primary" className="btn-lg">Guardar Cliente</Button>
-                      <Link to="/GestionClientes" className="btn btn-secondary btn-lg ml-2">Cancelar</Link>
-                    </div>
+                    <Button type="submit" color="primary" className="mt-3">
+                      Agregar Cliente
+                    </Button>
+                    <Link to="/GestionClientes" className="btn btn-secondary mt-3 ml-2">
+                      Cancelar
+                    </Link>
                   </Form>
                 </CardBody>
               </Card>
