@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiLock } from "react-icons/fi";
-import AuthService from "../services/authService";
-import "../styles/LoginForm.css";
+import AuthService from "../../services/authService";
+import "../../styles/LoginForm.css";
 
 const Login = ({ logo }) => {
   const [email, setEmail] = useState("");
@@ -22,6 +22,8 @@ const Login = ({ logo }) => {
   };
 
   const handleForgotPassword = () => {
+    // Implementa la lógica para el enlace de olvidaste tu contraseña aquí
+    // Por ejemplo, redirigir a una página de recuperación de contraseña
     navigate("/forgot-password");
   };
 
